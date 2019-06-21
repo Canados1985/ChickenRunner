@@ -113,10 +113,31 @@ class GameScene: SKScene {
         
     }
     
+    var cameraRect : CGRect {
+        let x = cameraNode.position.x - size.width/2
+            + (size.width - playableRect.width)/2
+        let y = cameraNode.position.y - size.height/2
+            + (size.height - playableRect.height)/2
+        return CGRect(
+            x: x,
+            y: y,
+            width: playableRect.width,
+            height: playableRect.height)
+    }
     
     func moveCamera() {
 
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+        
+        enumerateChildNodes(withName: "background") { node, _ in
+            let background = node as! SKSpriteNode
+            if background.position.x + background.size.width <
+                self.cameraRect.origin.x {
+                background.position = CGPoint(
+                    x: background.position.x + background.size.width*2,
+                    y: background.position.y)
+            }
+        }
     }
     
     
