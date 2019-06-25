@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E024E7122C08E5D00618222 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E024E7022C08E5D00618222 /* Background.swift */; };
+		9E08378A22C1A86800202D2B /* Platforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08378922C1A86800202D2B /* Platforms.swift */; };
 		9E3F349522BB503700A73B44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F349422BB503700A73B44 /* AppDelegate.swift */; };
 		9E3F349722BB503700A73B44 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F349622BB503700A73B44 /* GameScene.sks */; };
 		9E3F349922BB503700A73B44 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F349822BB503700A73B44 /* Actions.sks */; };
@@ -17,7 +19,6 @@
 		9E3F34A522BB503800A73B44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F34A322BB503800A73B44 /* LaunchScreen.storyboard */; };
 		9E3F34B022BB503800A73B44 /* ChickenRunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F34AF22BB503800A73B44 /* ChickenRunnerTests.swift */; };
 		9E3F34BB22BB503800A73B44 /* ChickenRunnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F34BA22BB503800A73B44 /* ChickenRunnerUITests.swift */; };
-		9E3F34C922BB5CF100A73B44 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F34C822BB5CF100A73B44 /* Background.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E024E7022C08E5D00618222 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		9E08378922C1A86800202D2B /* Platforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platforms.swift; sourceTree = "<group>"; };
 		9E3F349122BB503700A73B44 /* ChickenRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChickenRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F349422BB503700A73B44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E3F349622BB503700A73B44 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -54,7 +57,6 @@
 		9E3F34B622BB503800A73B44 /* ChickenRunnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChickenRunnerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F34BA22BB503800A73B44 /* ChickenRunnerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickenRunnerUITests.swift; sourceTree = "<group>"; };
 		9E3F34BC22BB503800A73B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E3F34C822BB5CF100A73B44 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +112,8 @@
 				9E3F349C22BB503700A73B44 /* GameViewController.swift */,
 				9E3F349822BB503700A73B44 /* Actions.sks */,
 				9E3F349A22BB503700A73B44 /* GameScene.swift */,
-				9E3F34C822BB5CF100A73B44 /* Background.swift */,
+				9E024E7022C08E5D00618222 /* Background.swift */,
+				9E08378922C1A86800202D2B /* Platforms.swift */,
 				9E3F349E22BB503700A73B44 /* Main.storyboard */,
 				9E3F34A122BB503800A73B44 /* Assets.xcassets */,
 				9E3F34A322BB503800A73B44 /* LaunchScreen.storyboard */,
@@ -270,10 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E08378A22C1A86800202D2B /* Platforms.swift in Sources */,
 				9E3F349B22BB503700A73B44 /* GameScene.swift in Sources */,
 				9E3F349D22BB503700A73B44 /* GameViewController.swift in Sources */,
 				9E3F349522BB503700A73B44 /* AppDelegate.swift in Sources */,
-				9E3F34C922BB5CF100A73B44 /* Background.swift in Sources */,
+				9E024E7122C08E5D00618222 /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
