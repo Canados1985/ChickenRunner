@@ -25,17 +25,23 @@ class GameScene: SKScene {
     let cloudSprite1 = SKSpriteNode(imageNamed: "cloud")
     let cloudSprite2 = SKSpriteNode(imageNamed: "cloud")
     
-    let player = SKSpriteNode(imageNamed: "player")
+    //let player = SKSpriteNode(imageNamed: "poring1")
+    //let playerAnimation: SKAction
+    
+    var player = Player()
     
     override func didMove(to view: SKView) {
         
+      
         addChild(cameraNode)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        player.position = CGPoint(x: size.width/2, y: size.height/2)
-        player.setScale(5)
+        //player.position = CGPoint(x: size.width/2, y: size.height/2)
+        //player.setScale(5)
         addChild(player)
+        
+        
         
         for i in 0...1 {
             
@@ -67,6 +73,24 @@ class GameScene: SKScene {
         cloudSprite2.zPosition = -5
         addChild(cloudSprite2)
         
+        
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
+    }
+    
+    var cameraRect : CGRect {
+        let x = cameraNode.position.x - size.width/2
+            + (size.width - playableRect.width)/2
+        let y = cameraNode.position.y - size.height/2
+            + (size.height - playableRect.height)/2
+        return CGRect(
+            x: x,
+            y: y,
+            width: playableRect.width,
+            height: playableRect.height)
     }
     
     
@@ -78,6 +102,16 @@ class GameScene: SKScene {
         playableRect = CGRect(x: 0, y: playableMargin,
                               width: size.width,
                               height: playableHeight) // 4
+        
+        
+        /*var textures:[SKTexture] = []
+        for i in 1...8{
+            textures.append(SKTexture(imageNamed: "poring\(i)"))
+            
+        }
+        textures.append(textures[2])
+        textures.append(textures[1])
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)*/
         
         super.init(size: size) // 5
     }
@@ -116,7 +150,16 @@ class GameScene: SKScene {
     
     func moveCamera() {
 
-        cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+        /*cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+        enumerateChildNodes(withName: "background") { node, _ in
+            let background = node as! SKSpriteNode
+            if background.position.x + background.size.width <
+                self.cameraRect.origin.x {
+                background.position = CGPoint(
+                    x: background.position.x + background.size.width*2,
+                    y: background.position.y)
+            }
+        }*/
     }
     
     
