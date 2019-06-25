@@ -33,10 +33,8 @@ class GameScene: SKScene {
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
     //platforms are here
     let platform3X6 = SKSpriteNode(imageNamed: "platform3X6")
+
     
-    let player = SKSpriteNode(imageNamed: "player")
-    
-   
     override func didMove(to view: SKView) {
         
 
@@ -44,9 +42,6 @@ class GameScene: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        player.position = CGPoint(x: size.width/2, y: size.height/2)
-        //player.setScale(5)
-        addChild(player)
     
         
         for i in 0...1 {
