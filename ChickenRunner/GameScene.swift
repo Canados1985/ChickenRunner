@@ -34,10 +34,6 @@ class GameScene: SKScene {
     let platform3X6 = SKSpriteNode(imageNamed: "platform3X6")
 
     
-    override func didMove(to view: SKView) {
-        
-    //let player = SKSpriteNode(imageNamed: "poring1")
-    //let playerAnimation: SKAction
     
     var player = Player()
     
@@ -139,18 +135,6 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    var cameraRect : CGRect {
-        let x = cameraNode.position.x - size.width/2
-            + (size.width - playableRect.width)/2
-        let y = cameraNode.position.y - size.height/2
-            + (size.height - playableRect.height)/2
-        return CGRect(
-            x: x,
-            y: y,
-            width: playableRect.width,
-            height: playableRect.height)
-    }
     
     
     
