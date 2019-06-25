@@ -32,6 +32,8 @@ class GameScene: SKScene {
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
     //platforms are here
     let platform3X6 = SKSpriteNode(imageNamed: "platform3X6")
+    let platform6X6 = SKSpriteNode(imageNamed: "platform6X6")
+    let platform12X6 = SKSpriteNode(imageNamed: "platform12X6")
 
     
     
@@ -44,12 +46,9 @@ class GameScene: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-
-
         //player.position = CGPoint(x: size.width/2, y: size.height/2)
         //player.setScale(5)
         addChild(player)
-        
         
         
         for i in 0...1 {
@@ -77,12 +76,14 @@ class GameScene: SKScene {
         addChild(barn)
         
         
-
-        platform3X6.position = CGPoint(x: 500, y: 0 + platform3X6.size.height / 2)
-        platform3X6.setScale(3)
-        platform3X6.zPosition = 0
+        drawPlatform3x6(platform3X6: platform3X6, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(platform3X6)
-
+        
+        drawPlatform6x6(platform6X6: platform6X6, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform6X6)
+        
+        drawPlatform12x6(platform12X6: platform12X6, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform12X6)
         
     }
     
@@ -160,7 +161,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         
         moveCamera()
-        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenHeight: screenHeight)
+        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
         print("\(cameraNode.position.x) camera X here")
         

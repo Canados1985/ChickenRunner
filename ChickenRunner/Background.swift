@@ -68,7 +68,7 @@ func drawCloud_2(cloud_2: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFl
     randomNumber = Int.random(in: 700 ..< 1200)
     randomHeight = Int.random(in: -100 ..< 100)
     speed_Cloud_2 = Int(randomScale)
-    cloud_2.position = CGPoint(x: Int(screenWidth + cloud_2.size.width) + randomNumber, y: Int(screenHeight / 2) + Int(randomHeight))
+    cloud_2.position = CGPoint(x: Int(screenWidth + cloud_2.size.width * 3) + randomNumber, y: Int(screenHeight / 2) + Int(randomHeight))
     cloud_2.zPosition = -50
 }
 
@@ -84,14 +84,13 @@ func drawBarn(barn: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 func drawHouse(houseBg: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
     //house sprite
-    houseBg.position = CGPoint(x: screenWidth/2 - houseBg.size.height, y: screenHeight/2 - houseBg.size.height * 2)
+    houseBg.position = CGPoint(x: screenWidth / 2 - houseBg.size.width, y: screenHeight / 2 - houseBg.size.height * 2)
     houseBg.setScale(2)
-    houseBg.zPosition = -50
+    houseBg.zPosition = -60
 }
 
 
-    
-func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode, cameraNode: SKCameraNode, cameraMovePointsPerSec: Int, screenHeight: CGFloat)
+func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode, houseBG: SKSpriteNode, cameraNode: SKCameraNode, cameraMovePointsPerSec: Int, screenWidth: CGFloat, screenHeight: CGFloat)
 {
    
     //Reset cloud 1 here
@@ -120,16 +119,25 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
     }
     
     //Reset barn here
-    if(barn.position.x < cameraNode.position.x - cloud_2.size.width * 4)
+    if(cameraNode.position.x > barn.position.x + barn.size.width * 3)
     {
         
-        randomScale = CGFloat.random(in: 1 ..< 4)
-        barn.setScale(2)
         randomNumber = Int.random(in: 700 ..< 1200)
         randomHeight = Int.random(in: -100 ..< 100)
         
-        barn.position = CGPoint(x: Int(cameraNode.position.x * 2), y: Int(screenHeight / 2))
-
+        barn.position = CGPoint(x: cameraNode.position.x + barn.size.width * 2, y: screenHeight/2 - barn.size.height / 3)
+        barn.setScale(2)
+    }
+    
+    //Reset house here
+    if(cameraNode.position.x > houseBG.position.x + houseBG.size.width * 3)
+    {
+        
+        randomNumber = Int.random(in: 700 ..< 1200)
+        randomHeight = Int.random(in: -100 ..< 100)
+        
+        houseBG.position = CGPoint(x: cameraNode.position.x + houseBG.size.width * 5, y: screenHeight / 2 - houseBG.size.height)
+        houseBG.setScale(2)
     }
     
     
@@ -137,12 +145,13 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
     cloud_1.position.x -= CGFloat(cameraMovePointsPerSec / speed_Cloud_1)
     cloud_2.position.x -= CGFloat(cameraMovePointsPerSec / speed_Cloud_2)
     
-    
+    barn.position.x -= CGFloat(Double(cameraMovePointsPerSec) / 10)
+    houseBG.position.x -= CGFloat(Double(cameraMovePointsPerSec) / 10)
     
     //houseBg.position.x -= CGFloat(cameraMovePointsPerSec) + 0.25
     //barn.position.x -= CGFloat(cameraMovePointsPerSec) + 0.45
     //print("\(cameraNode.position.x) camera position X here")
-    print("\(cloud_1.position.x) cloud_1 X here")
+    print("\(barn.position.x) BARN X here")
     //print("\(cloud_2.position.x) cloud_2 X here")
     
 }
