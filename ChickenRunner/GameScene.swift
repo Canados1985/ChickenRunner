@@ -31,9 +31,12 @@ class GameScene: SKScene {
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
     //platforms are here
-    let platform3X6 = SKSpriteNode(imageNamed: "platform3X6")
-    let platform6X6 = SKSpriteNode(imageNamed: "platform6X6")
-    let platform12X6 = SKSpriteNode(imageNamed: "platform12X6")
+    let platform3X6_1 = SKSpriteNode(imageNamed: "platform3X6")
+    let platform6X6_1 = SKSpriteNode(imageNamed: "platform6X6")
+    let platform12X6_1 = SKSpriteNode(imageNamed: "platform12X6")
+    let platform3X6_2 = SKSpriteNode(imageNamed: "platform3X6")
+    let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
+    let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
 
     
     
@@ -62,7 +65,6 @@ class GameScene: SKScene {
             addChild(bg)
         }
         
-        
         drawCloud_1(cloud_1: cloud_1, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_1)
         
@@ -76,14 +78,23 @@ class GameScene: SKScene {
         addChild(barn)
         
         
-        drawPlatform3x6(platform3X6: platform3X6, screenWidth: screenWidth, screenHeight: screenHeight)
-        addChild(platform3X6)
+        drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform3X6_1)
+    
+        drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform6X6_1)
         
-        drawPlatform6x6(platform6X6: platform6X6, screenWidth: screenWidth, screenHeight: screenHeight)
-        addChild(platform6X6)
+        drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform12X6_1)
+       
         
-        drawPlatform12x6(platform12X6: platform12X6, screenWidth: screenWidth, screenHeight: screenHeight)
-        addChild(platform12X6)
+        drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform3X6_2)
+        drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform6X6_2)
+        
+        drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(platform12X6_2)
         
     }
     
@@ -163,6 +174,8 @@ class GameScene: SKScene {
         moveCamera()
         moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
+        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
+        
         print("\(cameraNode.position.x) camera X here")
         
     }

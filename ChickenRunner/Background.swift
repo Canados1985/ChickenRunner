@@ -151,7 +151,7 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
     //houseBg.position.x -= CGFloat(cameraMovePointsPerSec) + 0.25
     //barn.position.x -= CGFloat(cameraMovePointsPerSec) + 0.45
     //print("\(cameraNode.position.x) camera position X here")
-    print("\(barn.position.x) BARN X here")
+    //print("\(barn.position.x) BARN X here")
     //print("\(cloud_2.position.x) cloud_2 X here")
     
 }

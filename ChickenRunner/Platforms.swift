@@ -9,33 +9,187 @@
 import SpriteKit
 
 
-//var randomScale = CGFloat.random(in: 1 ..< 4)
-//var randomHeight = Int.random(in: -100 ..< 100)
+var rGap = Int() // Distance between platforms
+var rHeight = Int() // Height of the platrom
+var rIndex = Int() //Index for random
+
+var tempPlatform3X6PositionX = CGFloat()
+var tempPlatform3X6PositionY = CGFloat()
+
+var tempPlatform6X6PositionX = CGFloat()
+var tempPlatform6X6PositionY = CGFloat()
+
+var tempPlatform12X6PositionX = CGFloat()
+var tempPlatform12X6PositionY = CGFloat()
+
+var tempPlatform3X6PositionX_2 = CGFloat()
+var tempPlatform3X6PositionY_2 = CGFloat()
+
+var tempPlatform6X6PositionX_2 = CGFloat()
+var tempPlatform6X6PositionY_2 = CGFloat()
+
+var tempPlatform12X6PositionX_2 = CGFloat()
+var tempPlatform12X6PositionY_2 = CGFloat()
 
 
-func drawPlatform3x6(platform3X6: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+
+//PLATFORM 3X6 _1
+func drawPlatform3x6_1(platform3X6_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
-    randomNumber = Int.random(in: 700 ..< 1200)
+    rGap = Int.random(in: 250 ..< 1000)
+    rHeight = Int.random(in: -100 ..< 200)
+    rIndex = Int.random(in: 1 ..< 3)
 
-    platform3X6.position = CGPoint(x: screenWidth * 3, y: 0 - platform3X6.size.height / 3)
-    platform3X6.setScale(3)
-    platform3X6.zPosition = 0
+    platform3X6_1.position = CGPoint(x: Int(tempPlatform12X6PositionX) + rGap * rIndex , y: Int(screenHeight / 2 - platform3X6_1.size.height * 2) + rHeight)
+    
+    tempPlatform3X6PositionX = platform3X6_1.position.x
+    tempPlatform3X6PositionY = platform3X6_1.position.y
+    
+    platform3X6_1.setScale(2)
+    platform3X6_1.zPosition = 0
 }
 
-func drawPlatform6x6(platform6X6: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+//PLATFORM 3X6 _2
+func drawPlatform3x6_2(platform3X6_2: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
-    randomNumber = Int.random(in: 700 ..< 1200)
+    rGap = Int.random(in: 250 ..< 1000)
+    rHeight = Int.random(in: -100 ..< 200)
+    rIndex = Int.random(in: 1 ..< 3)
     
-    platform6X6.position = CGPoint(x: screenWidth * 2, y: 0 - platform6X6.size.height / 3)
-    platform6X6.setScale(3)
-    platform6X6.zPosition = 0
+    platform3X6_2.position = CGPoint(x: Int(tempPlatform12X6PositionX) + rGap * rIndex , y: Int(screenHeight / 2 - platform3X6_2.size.height * 2) + rHeight)
+    
+    tempPlatform3X6PositionX_2 = platform3X6_2.position.x
+    tempPlatform3X6PositionY_2 = platform3X6_2.position.y
+    
+    platform3X6_2.setScale(2)
+    platform3X6_2.zPosition = 0
 }
 
-func drawPlatform12x6(platform12X6: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+
+
+//PLATFORM 6X6 _1
+func drawPlatform6x6_1(platform6X6_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
-    randomNumber = Int.random(in: 700 ..< 1200)
+    rGap = Int.random(in: 500 ..< 1500)
+    rHeight = Int.random(in: -100 ..< 100)
+    rIndex = Int.random(in: 1 ..< 3)
     
-    platform12X6.position = CGPoint(x: 0, y: 0 - platform12X6.size.height / 3)
-    platform12X6.setScale(3)
-    platform12X6.zPosition = 0
+    platform6X6_1.position = CGPoint(x: Int(tempPlatform12X6PositionX) + rGap * 2 * rIndex, y: Int(screenHeight / 2 - platform6X6_1.size.height * 2) + rHeight)
+    
+    tempPlatform6X6PositionX = platform6X6_1.position.x
+    tempPlatform6X6PositionY = platform6X6_1.position.y
+    
+    platform6X6_1.setScale(2)
+    platform6X6_1.zPosition = 0
+}
+
+//PLATFORM 6X6 _2
+func drawPlatform6x6_2(platform6X6_2: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+{
+    rGap = Int.random(in: 500 ..< 1500)
+    rHeight = Int.random(in: -100 ..< 100)
+    rIndex = Int.random(in: 1 ..< 3)
+    
+    platform6X6_2.position = CGPoint(x: Int(tempPlatform12X6PositionX_2) + rGap * 2 * rIndex, y: Int(screenHeight / 2 - platform6X6_2.size.height * 2) + rHeight)
+    
+    tempPlatform6X6PositionX_2 = platform6X6_2.position.x
+    tempPlatform6X6PositionY_2 = platform6X6_2.position.y
+    
+    platform6X6_2.setScale(2)
+    platform6X6_2.zPosition = 0
+}
+
+
+//PLATFORM 12X6 _1
+func drawPlatform12x6_1(platform12X6_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+{
+    rGap = Int.random(in: 500 ..< 1500)
+    rHeight = Int.random(in: -100 ..< 100)
+    rIndex = Int.random(in: 1 ..< 3)
+    
+    platform12X6_1.position = CGPoint(x: 0, y: screenHeight / 2 - platform12X6_1.size.height * 2)
+    
+    tempPlatform12X6PositionX = platform12X6_1.position.x
+    tempPlatform12X6PositionY = platform12X6_1.position.y
+    
+    platform12X6_1.setScale(2)
+    platform12X6_1.zPosition = 0
+}
+
+
+//PLATFORM 12X6 _2
+func drawPlatform12x6_2(platform12X6_2: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+{
+    rGap = Int.random(in: 500 ..< 1500)
+    rHeight = Int.random(in: -100 ..< 100)
+    rIndex = Int.random(in: 1 ..< 3)
+    
+    platform12X6_2.position = CGPoint(x: 0, y: screenHeight / 2 - platform12X6_2.size.height * 2)
+    
+    tempPlatform12X6PositionX_2 = platform12X6_2.position.x
+    tempPlatform12X6PositionY_2 = platform12X6_2.position.y
+    
+    platform12X6_2.setScale(2)
+    platform12X6_2.zPosition = 0
+}
+
+
+
+
+
+
+
+
+//RESET PLATFORMS HERE
+func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode,  platform12X6_1: SKSpriteNode, platform3X6_2: SKSpriteNode, platform6X6_2: SKSpriteNode,  platform12X6_2: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat, cameraNode: SKCameraNode)
+{
+    //RESET PLATFORM 12X6
+    if(Int(platform12X6_1.position.x) < Int(cameraNode.position.x - platform12X6_1.size.width) - rGap)
+    {
+        
+        rGap = Int.random(in: 500 ..< 1500)
+        rHeight = Int.random(in: -100 ..< 200)
+        rIndex = Int.random(in: 1 ..< 3)
+        
+        platform12X6_1.position = CGPoint(x: Int(cameraNode.position.x) + Int(screenWidth), y: Int(screenHeight / 2 - platform12X6_1.size.height))
+        
+        tempPlatform12X6PositionX = platform12X6_1.position.x
+        tempPlatform12X6PositionY = platform12X6_1.position.y
+        
+        print("RESET PLATFROM 12X6 HERE")
+    }
+    
+    //RESET PLATFORM 6X6
+    if(platform6X6_1.position.x < cameraNode.position.x - platform6X6_1.size.width * 2)
+    {
+        
+        rGap = Int.random(in: 500 ..< 1500)
+        rHeight = Int.random(in: -100 ..< 200)
+        rIndex = Int.random(in: 1 ..< 3)
+        
+        platform6X6_1.position = CGPoint(x: cameraNode.position.x + tempPlatform12X6PositionX * 2, y: screenHeight / 2 - platform6X6_1.size.height)
+        
+        tempPlatform6X6PositionX = platform6X6_1.position.x
+        tempPlatform6X6PositionY = platform6X6_1.position.y
+        
+        //print("RESET PLATFROM 6X6 HERE")
+    }
+    
+    
+    //RESET PLATFORM 3X6
+    if(platform3X6_1.position.x < cameraNode.position.x - platform3X6_1.size.width * 3)
+    {
+        
+        rGap = Int.random(in: 500 ..< 1500)
+        rHeight = Int.random(in: -100 ..< 200)
+        rIndex = Int.random(in: 1 ..< 3)
+        
+        platform3X6_1.position = CGPoint(x: cameraNode.position.x + tempPlatform6X6PositionX * 2, y: screenHeight / 2 - platform3X6_1.size.height)
+        
+        tempPlatform3X6PositionX = platform3X6_1.position.x
+        tempPlatform3X6PositionY = platform3X6_1.position.y
+        
+        //print("RESET PLATFROM 3X6 HERE")
+    }
+    print("\(platform12X6_1.position.x) PLATFORM 12X6 X here")
 }
