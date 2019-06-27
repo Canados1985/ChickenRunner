@@ -14,6 +14,8 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     let playableRect: CGRect
+    let mySKView = SKView()
+    
     
     var screenWidth = CGFloat()
     var screenHeight = CGFloat()
@@ -26,26 +28,53 @@ class GameScene: SKScene {
     let cameraNode = SKCameraNode() // Camera Node
     var cameraMovePointsPerSec = Int(10) // start speed for camera
     
-    
     let houseBg = SKSpriteNode(imageNamed: "house") // farm house
     let barn = SKSpriteNode(imageNamed: "barn") // barn
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
     //platforms are here
-    let platform3X6 = SKSpriteNode(imageNamed: "platform3X6")
-   
+    let platform3X6_1 = SKSpriteNode(imageNamed: "platform3X6")
+    let platform6X6_1 = SKSpriteNode(imageNamed: "platform6X6")
+    let platform12X6_1 = SKSpriteNode(imageNamed: "platform12X6")
+    let platform3X6_2 = SKSpriteNode(imageNamed: "platform3X6")
+    let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
+    let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
+    
+    var player = Player()
+    
+    
+    //colision mask
+    struct PhysicsCategory {
+        static let None:       UInt32 = 0
+        static let Platform:   UInt32 = 0b1 // 1
+        static let Player:     UInt32 = 0b10 // 2
+      //  static let name:     UInt32 = 0b100 // 4
+      //  static let name:     UInt32 = 0b1000 // 8
+      //  static let name:     UInt32 = 0b10000 // 16
+      //  static let name:     UInt32 = 0b100000 // 32
+      //  static let name:     UInt32 = 0b1000000 // 64
+        
+    }
+    
     
     override func didMove(to view: SKView) {
         //Player
         PlayerTexture()
         addChild(mainPlayer)
         
-        //Camera
+        mySKView.showsPhysics = true
+        mySKView.showsFPS = true
+        
+        
         addChild(cameraNode)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        //Background
+        //player.position = CGPoint(x: size.width/2, y: size.height/2)
+        //player.setScale(5)
+        addChild(player)
+        
+        
         for i in 0...1 {
             
             bg = backgroundNode()
@@ -57,25 +86,64 @@ class GameScene: SKScene {
             addChild(bg)
         }
         
-        
         drawCloud_1(cloud_1: cloud_1, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_1)
         
         drawCloud_2(cloud_2: cloud_2, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_2)
 
+
         drawHouse(houseBg: houseBg, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(houseBg)
-        
         drawBarn(barn: barn, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(barn)
         
         
-        platform3X6.position = CGPoint(x: 500, y: 0 + platform3X6.size.height / 2)
-        platform3X6.setScale(3)
-        platform3X6.zPosition = 0
-        addChild(platform3X6)
+        drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform3X6_1)
         
+    
+        drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform6X6_1)
+        
+        
+        drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform12X6_1)
+        
+       
+        
+        drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform3X6_2)
+        
+        
+        drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform6X6_2)
+        
+        
+        drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+        addChild(platform12X6_2)
+        
+        
+
+        
+    }
+    
+
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
     }
     
     var cameraRect : CGRect {
@@ -100,8 +168,19 @@ class GameScene: SKScene {
                               width: size.width,
                               height: playableHeight) // 4
         
+
         screenWidth = size.width;
         screenHeight = size.height;
+
+        
+        /*var textures:[SKTexture] = []
+        for i in 1...8{
+            textures.append(SKTexture(imageNamed: "poring\(i)"))
+            
+        }
+        textures.append(textures[2])
+        textures.append(textures[1])
+        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)*/
         
         super.init(size: size) // 5
         
@@ -111,9 +190,13 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    
     func moveCamera() {
-        
+
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+
         enumerateChildNodes(withName: "background") { node, _ in
             let background = node as! SKSpriteNode
             if background.position.x + background.size.width <
@@ -122,7 +205,9 @@ class GameScene: SKScene {
                     x: background.position.x + background.size.width*2,
                     y: background.position.y)
             }
+
         }
+        
     }
     
     func AnimatePlayer(){
@@ -133,8 +218,10 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         
         moveCamera()
-        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenHeight: screenHeight)
-        AnimatePlayer()
+        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
+       
+        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
+        
         print("\(cameraNode.position.x) camera X here")
         
     }
