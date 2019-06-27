@@ -118,7 +118,7 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
         
     }
     
-    //Reset barn here
+    //Reset BARN here
     if(cameraNode.position.x > barn.position.x + barn.size.width * 3)
     {
         
@@ -129,14 +129,14 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
         barn.setScale(2)
     }
     
-    //Reset house here
+    //Reset MILL here
     if(cameraNode.position.x > houseBG.position.x + houseBG.size.width * 3)
     {
         
         randomNumber = Int.random(in: 700 ..< 1200)
-        randomHeight = Int.random(in: -100 ..< 100)
+        randomHeight = Int.random(in: -100 ..< 0)
         
-        houseBG.position = CGPoint(x: screenWidth / 2 - houseBG.size.width, y: screenHeight / 2 + houseBG.size.height / 2)
+        houseBG.position = CGPoint(x: Int(cameraNode.position.x + houseBG.size.width * 2) + randomNumber, y: Int(screenHeight / 2 + houseBG.size.height / 3) + randomHeight)
         houseBG.setScale(2)
     }
     
