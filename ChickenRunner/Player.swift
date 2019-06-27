@@ -26,8 +26,11 @@ import SpriteKit
         
         mainPlayer = SKSpriteNode(imageNamed: TextureAtlas.textureNames[0])
         mainPlayer.size = CGSize(width: 180, height: 150)
-        mainPlayer.position = CGPoint(x: 300 , y: 300)
+        mainPlayer.position = CGPoint(x: 300 , y: 600)
         mainPlayer.zPosition = 100
+        mainPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 90, center: CGPoint(x: 0, y: 0))
+        mainPlayer.physicsBody?.affectedByGravity = true
+        mainPlayer.physicsBody!.isDynamic = true
         mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: TextureArray, timePerFrame: 0.1)))
         
     }
