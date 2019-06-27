@@ -40,7 +40,7 @@ class GameScene: SKScene {
     let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
     let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
     
-    var player = Player()
+    //var player = Player()
     
     
     //colision mask
@@ -70,9 +70,6 @@ class GameScene: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        //player.position = CGPoint(x: size.width/2, y: size.height/2)
-        //player.setScale(5)
-        addChild(player)
         
         
         for i in 0...1 {
@@ -143,7 +140,7 @@ class GameScene: SKScene {
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
+       // player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
     }
     
     var cameraRect : CGRect {
@@ -171,16 +168,6 @@ class GameScene: SKScene {
 
         screenWidth = size.width;
         screenHeight = size.height;
-
-        
-        /*var textures:[SKTexture] = []
-        for i in 1...8{
-            textures.append(SKTexture(imageNamed: "poring\(i)"))
-            
-        }
-        textures.append(textures[2])
-        textures.append(textures[1])
-        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)*/
         
         super.init(size: size) // 5
         
@@ -212,7 +199,7 @@ class GameScene: SKScene {
     
     func AnimatePlayer(){
         mainPlayer.position.x = mainPlayer.position.x + 10
-        //mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
+        mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -221,6 +208,7 @@ class GameScene: SKScene {
         moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
         resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
+        AnimatePlayer()
         
         print("\(cameraNode.position.x) camera X here")
         
