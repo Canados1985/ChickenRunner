@@ -42,15 +42,15 @@ class GameScene: SKScene {
     let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
     let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
     
-    var player = Player()
-    
+    //var player = Player()
+    var touch = false
     
     //colision mask
     struct PhysicsCategory {
         static let None:       UInt32 = 0
         static let Platform:   UInt32 = 0b1 // 1
         static let Player:     UInt32 = 0b10 // 2
-      //  static let name:     UInt32 = 0b100 // 4
+        static let Edge:     UInt32 = 0b100 // 4
       //  static let name:     UInt32 = 0b1000 // 8
       //  static let name:     UInt32 = 0b10000 // 16
       //  static let name:     UInt32 = 0b100000 // 32
@@ -60,18 +60,19 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
+        //Player
+        PlayerTexture()
+        mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        addChild(mainPlayer)
         
-        mySKView.showsPhysics = true
-        mySKView.showsFPS = true
+       
         
         
         addChild(cameraNode)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        //player.position = CGPoint(x: size.width/2, y: size.height/2)
-        //player.setScale(5)
-        addChild(player)
         
         
         for i in 0...1 {
@@ -143,14 +144,25 @@ class GameScene: SKScene {
         
     }
     
-
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
-        
-        
-        
+    func PlayerIsOnGround(){
+        //if mainPlayer.physicsBody?.usesPreciseCollisionDetection == true {
+            
+        //}
     }
+
+    //##################################
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+        
+      
+        touch = true
+        print("it's clicking")
+
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touch = false
+        print("it's not clicking anymore")
+    }
+    //##################################
     
     var cameraRect : CGRect {
         let x = cameraNode.position.x - size.width/2
@@ -164,7 +176,7 @@ class GameScene: SKScene {
             height: playableRect.height)
     }
     
-
+    
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0/9.0 // 1
         let playableHeight = size.width / maxAspectRatio // 2
@@ -177,20 +189,9 @@ class GameScene: SKScene {
 
         screenWidth = size.width;
         screenHeight = size.height;
-
-        
-        /*var textures:[SKTexture] = []
-        for i in 1...8{
-            textures.append(SKTexture(imageNamed: "poring\(i)"))
-            
-        }
-        textures.append(textures[2])
-        textures.append(textures[1])
-        playerAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)*/
         
         super.init(size: size) // 5
         
-    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -217,7 +218,10 @@ class GameScene: SKScene {
         
     }
     
-    
+    func AnimatePlayer(){
+        mainPlayer.position.x = mainPlayer.position.x + 10
+        //mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
+    }
     
     override func update(_ currentTime: TimeInterval) {
         
@@ -225,6 +229,11 @@ class GameScene: SKScene {
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
         resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
+        AnimatePlayer()
+        
+        if touch {
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 200))
+        }
         
         print("\(cameraNode.position.x) camera X here")
         

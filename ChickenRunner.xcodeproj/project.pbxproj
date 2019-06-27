@@ -26,6 +26,8 @@
 		9436C88022BDA6AF00FF6637 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436C87422BDA6AF00FF6637 /* CGFloat+Extensions.swift */; };
 		9479DAD922C196AF0061DA05 /* Player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9479DAD822C196AF0061DA05 /* Player.atlas */; };
 		9479DADB22C1A3540061DA05 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9479DADA22C1A3540061DA05 /* MyTileSet.sks */; };
+		9E024E7122C08E5D00618222 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E024E7022C08E5D00618222 /* Background.swift */; };
+		9E08378A22C1A86800202D2B /* Platforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08378922C1A86800202D2B /* Platforms.swift */; };
 		9E3F349522BB503700A73B44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F349422BB503700A73B44 /* AppDelegate.swift */; };
 		9E3F349722BB503700A73B44 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F349622BB503700A73B44 /* GameScene.sks */; };
 		9E3F349922BB503700A73B44 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F349822BB503700A73B44 /* Actions.sks */; };
@@ -76,6 +78,8 @@
 		9436C87422BDA6AF00FF6637 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9479DAD822C196AF0061DA05 /* Player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Player.atlas; sourceTree = "<group>"; };
 		9479DADA22C1A3540061DA05 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
+		9E024E7022C08E5D00618222 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		9E08378922C1A86800202D2B /* Platforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platforms.swift; sourceTree = "<group>"; };
 
 		9E3F349122BB503700A73B44 /* ChickenRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChickenRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F349422BB503700A73B44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 				9436C88022BDA6AF00FF6637 /* CGFloat+Extensions.swift in Sources */,
 				9436C87F22BDA6AF00FF6637 /* Vector3.swift in Sources */,
 				9E3F34C922BB5CF100A73B44 /* Background.swift in Sources */,
+				9E024E7122C08E5D00618222 /* Background.swift in Sources */,
 
 			);
 			runOnlyForDeploymentPostprocessing = 0;
