@@ -21,6 +21,7 @@ class GameScene: SKScene {
     var screenHeight = CGFloat()
     
     var bg = SKSpriteNode()
+    var bg_trees = SKSpriteNode()
     
     var randomNumber = Int.random(in: 150 ..< 300)
     var randomScale = CGFloat.random(in: 1 ..< 4)
@@ -32,6 +33,7 @@ class GameScene: SKScene {
     let barn = SKSpriteNode(imageNamed: "barn") // barn
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
+    let sun = SKSpriteNode(imageNamed: "sun_")
     //platforms are here
     let platform3X6_1 = SKSpriteNode(imageNamed: "platform3X6")
     let platform6X6_1 = SKSpriteNode(imageNamed: "platform6X6")
@@ -82,6 +84,10 @@ class GameScene: SKScene {
             bg.zPosition = -100
             addChild(bg)
         }
+        
+        
+        drawSun(sun: sun, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(sun)
         
         drawCloud_1(cloud_1: cloud_1, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_1)
@@ -141,6 +147,9 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
+        
+        
+        
     }
     
     var cameraRect : CGRect {
@@ -213,7 +222,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         
         moveCamera()
-        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
+        moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
         resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
         
