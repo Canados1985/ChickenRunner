@@ -78,13 +78,13 @@ func drawBarn(barn: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
     //house sprite
     barn.position = CGPoint(x: screenWidth + barn.size.width * 2, y: screenHeight/2 + barn.size.height / 3)
     barn.setScale(2)
-    barn.zPosition = -50
+    barn.zPosition = -60
 }
 
 func drawHouse(houseBg: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
     //house sprite
-    houseBg.position = CGPoint(x: screenWidth / 2 - houseBg.size.width, y: screenHeight / 2 + houseBg.size.height)
+    houseBg.position = CGPoint(x: screenWidth / 2 - houseBg.size.width, y: screenHeight / 2 + houseBg.size.height / 2)
     houseBg.setScale(2)
     houseBg.zPosition = -60
 }
@@ -125,7 +125,7 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
         randomNumber = Int.random(in: 700 ..< 1200)
         randomHeight = Int.random(in: -100 ..< 100)
         
-        barn.position = CGPoint(x: cameraNode.position.x + barn.size.width * 2, y: screenHeight/2 + barn.size.height / 3)
+        barn.position = CGPoint(x: cameraNode.position.x + barn.size.width * 2, y: screenHeight/2 + barn.size.height / 4)
         barn.setScale(2)
     }
     
@@ -136,7 +136,7 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
         randomNumber = Int.random(in: 700 ..< 1200)
         randomHeight = Int.random(in: -100 ..< 100)
         
-        houseBG.position = CGPoint(x: cameraNode.position.x + houseBG.size.width * 5, y: screenHeight / 2 - houseBG.size.height)
+        houseBG.position = CGPoint(x: screenWidth / 2 - houseBG.size.width, y: screenHeight / 2 + houseBG.size.height / 2)
         houseBG.setScale(2)
     }
     

@@ -30,7 +30,7 @@ var tempPlatform6X6PositionY_2 = CGFloat()
 var tempPlatform12X6PositionX_2 = CGFloat()
 var tempPlatform12X6PositionY_2 = CGFloat()
 
-
+var collisionMask = SKPhysicsBody()
 
 //PLATFORM 3X6 _1
 func drawPlatform3x6_1(platform3X6_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
@@ -46,6 +46,12 @@ func drawPlatform3x6_1(platform3X6_1: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform3X6_1.setScale(2)
     platform3X6_1.zPosition = 0
+    
+    platform3X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform3X6_1.size)
+    platform3X6_1.physicsBody?.affectedByGravity = false;
+
+    
+    
 }
 
 //PLATFORM 3X6 _2
@@ -62,6 +68,9 @@ func drawPlatform3x6_2(platform3X6_2: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform3X6_2.setScale(2)
     platform3X6_2.zPosition = 0
+    
+    platform3X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform3X6_2.size)
+    platform3X6_2.physicsBody?.affectedByGravity = false;
 }
 
 
@@ -79,6 +88,11 @@ func drawPlatform6x6_1(platform6X6_1: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform6X6_1.setScale(2)
     platform6X6_1.zPosition = 0
+    
+    platform6X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform6X6_1.size)
+    platform6X6_1.physicsBody?.affectedByGravity = false;
+    
+    
 }
 
 //PLATFORM 6X6 _2
@@ -95,6 +109,9 @@ func drawPlatform6x6_2(platform6X6_2: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform6X6_2.setScale(2)
     platform6X6_2.zPosition = 0
+    
+    platform6X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform6X6_2.size)
+    platform6X6_2.physicsBody?.affectedByGravity = false;
 }
 
 
@@ -112,6 +129,10 @@ func drawPlatform12x6_1(platform12X6_1: SKSpriteNode, screenWidth: CGFloat, scre
     
     platform12X6_1.setScale(2)
     platform12X6_1.zPosition = 0
+    
+    platform12X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform12X6_1.size)
+    platform12X6_1.physicsBody?.affectedByGravity = false
+    
 }
 
 
@@ -129,11 +150,11 @@ func drawPlatform12x6_2(platform12X6_2: SKSpriteNode, screenWidth: CGFloat, scre
     
     platform12X6_2.setScale(2)
     platform12X6_2.zPosition = 0
+    
+    
+    platform12X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform12X6_2.size)
+    platform12X6_2.physicsBody?.affectedByGravity = false;
 }
-
-
-
-
 
 
 
@@ -239,7 +260,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
         //print("RESET PLATFROM 3X6 HERE")
     }
     
-    
+    //platform12X6_1.physicsBody?.linearDamping = 5
     
     print("\(platform12X6_1.position.x) PLATFORM 12X6 X here")
 }

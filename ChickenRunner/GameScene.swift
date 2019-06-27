@@ -14,6 +14,8 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     let playableRect: CGRect
+    let mySKView = SKView()
+    
     
     var screenWidth = CGFloat()
     var screenHeight = CGFloat()
@@ -37,14 +39,30 @@ class GameScene: SKScene {
     let platform3X6_2 = SKSpriteNode(imageNamed: "platform3X6")
     let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
     let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
-
-    
     
     var player = Player()
     
+    
+    //colision mask
+    struct PhysicsCategory {
+        static let None:       UInt32 = 0
+        static let Platform:   UInt32 = 0b1 // 1
+        static let Player:     UInt32 = 0b10 // 2
+      //  static let name:     UInt32 = 0b100 // 4
+      //  static let name:     UInt32 = 0b1000 // 8
+      //  static let name:     UInt32 = 0b10000 // 16
+      //  static let name:     UInt32 = 0b100000 // 32
+      //  static let name:     UInt32 = 0b1000000 // 64
+        
+    }
+    
+    
     override func didMove(to view: SKView) {
         
-      
+        mySKView.showsPhysics = true
+        mySKView.showsFPS = true
+        
+        
         addChild(cameraNode)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -71,32 +89,55 @@ class GameScene: SKScene {
         drawCloud_2(cloud_2: cloud_2, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_2)
 
+
         drawHouse(houseBg: houseBg, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(houseBg)
-        
         drawBarn(barn: barn, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(barn)
         
         
         drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform3X6_1)
+        
     
         drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform6X6_1)
         
+        
         drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform12X6_1)
+        
        
         
         drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform3X6_2)
+        
+        
         drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform6X6_2)
         
+        
         drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
         addChild(platform12X6_2)
         
+        
+
+        
     }
+    
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         player.mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: player.TextureArray, timePerFrame: 10.0)))
