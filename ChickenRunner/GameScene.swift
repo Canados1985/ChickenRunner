@@ -177,8 +177,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         print("Not hit")
     }
     
-
-
     
     //##################################
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
