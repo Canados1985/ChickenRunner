@@ -9,13 +9,12 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate{
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     let playableRect: CGRect
     let mySKView = SKView()
-    
     
     var screenWidth = CGFloat()
     var screenHeight = CGFloat()
@@ -45,12 +44,14 @@ class GameScene: SKScene {
     //var player = Player()
     var touch = false
     
+
+    
     //colision mask
     struct PhysicsCategory {
         static let None:       UInt32 = 0
         static let Platform:   UInt32 = 0b1 // 1
         static let Player:     UInt32 = 0b10 // 2
-        static let Edge:     UInt32 = 0b100 // 4
+        static let Edge:       UInt32 = 0b100 // 4
       //  static let name:     UInt32 = 0b1000 // 8
       //  static let name:     UInt32 = 0b10000 // 16
       //  static let name:     UInt32 = 0b100000 // 32
@@ -64,6 +65,7 @@ class GameScene: SKScene {
         PlayerTexture()
         mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Player
         mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        
         addChild(mainPlayer)
         
        
@@ -73,7 +75,7 @@ class GameScene: SKScene {
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        
+        physicsWorld.contactDelegate = self
         
         for i in 0...1 {
             
@@ -106,18 +108,21 @@ class GameScene: SKScene {
         drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
         platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform3X6_1)
         
     
         drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
         platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform6X6_1)
         
         
         drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
         platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform12X6_1)
         
        
@@ -125,35 +130,30 @@ class GameScene: SKScene {
         drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform3X6_2)
         
         
         drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform6X6_2)
         
         
         drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+
         addChild(platform12X6_2)
         
-        
-
-        
     }
+
     
-    func PlayerIsOnGround(){
-        //if mainPlayer.physicsBody?.usesPreciseCollisionDetection == true {
-            
-        //}
-    }
-
     //##################################
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-        
-      
+    {
+
         touch = true
         print("it's clicking")
 
@@ -219,6 +219,9 @@ class GameScene: SKScene {
     }
     
     func AnimatePlayer(){
+        
+        
+        
         mainPlayer.position.x = mainPlayer.position.x + 10
         //mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
     }
@@ -232,11 +235,11 @@ class GameScene: SKScene {
         AnimatePlayer()
         
         if touch {
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 200))
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 300))
         }
-        
-        print("\(cameraNode.position.x) camera X here")
-        
-    }
+        //print("\(cameraNode.position.x) camera X here")
+        }
+    
+    
 }
 

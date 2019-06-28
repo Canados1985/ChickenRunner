@@ -175,7 +175,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
         tempPlatform12X6PositionX = platform12X6_1.position.x
         tempPlatform12X6PositionY = platform12X6_1.position.y
         
-        print("RESET PLATFROM 12X6 HERE")
+        //print("RESET PLATFROM 12X6 HERE")
     }
     
     
@@ -262,5 +262,5 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
     
     //platform12X6_1.physicsBody?.linearDamping = 5
     
-    print("\(platform12X6_1.position.x) PLATFORM 12X6 X here")
+    //print("\(platform12X6_1.position.x) PLATFORM 12X6 X here")
 }
