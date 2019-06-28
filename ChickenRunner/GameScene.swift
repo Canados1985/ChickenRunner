@@ -9,7 +9,9 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate{
+
+class GameScene: SKScene ,SKPhysicsContactDelegate{
+
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
@@ -43,6 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     //var player = Player()
     var touch = false
+    var canJump = true
     
 
     
@@ -61,11 +64,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
         //Player
         PlayerTexture()
-        mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        mainPlayer.physicsBody?.categoryBitMask = PhysicsCategory.Player
         mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        
+        mainPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+
         addChild(mainPlayer)
         
        
@@ -106,48 +112,72 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         
         drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
-
+        platform3X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform3X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         addChild(platform3X6_1)
         
     
         drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
-
+        platform6X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform6X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         addChild(platform6X6_1)
         
         
         drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.None
+       platform12X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform12X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
 
         addChild(platform12X6_1)
         
        
         
         drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
+        platform3X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
+         platform3X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
 
         addChild(platform3X6_2)
         
         
         drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
-
+        platform6X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform6X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         addChild(platform6X6_2)
         
         
         drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Platform
-        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.None
-
+        platform12X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform12X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        
         addChild(platform12X6_2)
+
         
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("contact")
+        let collision = contact.bodyA.categoryBitMask
+            | contact.bodyB.categoryBitMask
+        print("Hit")
+        if collision == PhysicsCategory.Player | PhysicsCategory.Platform {
+            print("platform")
+            canJump = true
+            print("Jumped")
+        }else{
+            canJump = false
+        }
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        print("Not hit")
+    }
+    
+
 
     
     //##################################
@@ -219,10 +249,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     func AnimatePlayer(){
-        
-        
-        
-        mainPlayer.position.x = mainPlayer.position.x + 10
+
+        if mainPlayer.position.x <= cameraNode.position.x - mainPlayer.size.width*4{
+            mainPlayer.position.x = mainPlayer.position.x + 25
+        }else{
+             mainPlayer.position.x = mainPlayer.position.x + 10
+        }
+       
+
         //mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
     }
     
@@ -233,13 +267,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
        
         resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
         AnimatePlayer()
+    
+        if touch && canJump {
+             canJump = false
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 200))
+        }
         
-        if touch {
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 300))
-        }
         //print("\(cameraNode.position.x) camera X here")
-        }
-    
-    
+        
+    }
+
 }
 
