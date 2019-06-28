@@ -49,6 +49,7 @@ func drawPlatform3x6_1(platform3X6_1: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform3X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform3X6_1.size)
     platform3X6_1.physicsBody?.affectedByGravity = false;
+    platform3X6_1.physicsBody?.isDynamic = false
 
     
     
@@ -71,6 +72,7 @@ func drawPlatform3x6_2(platform3X6_2: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform3X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform3X6_2.size)
     platform3X6_2.physicsBody?.affectedByGravity = false;
+    platform3X6_2.physicsBody?.isDynamic = false
 }
 
 
@@ -91,6 +93,7 @@ func drawPlatform6x6_1(platform6X6_1: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform6X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform6X6_1.size)
     platform6X6_1.physicsBody?.affectedByGravity = false;
+    platform6X6_1.physicsBody?.isDynamic = false
     
     
 }
@@ -112,6 +115,7 @@ func drawPlatform6x6_2(platform6X6_2: SKSpriteNode, screenWidth: CGFloat, screen
     
     platform6X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform6X6_2.size)
     platform6X6_2.physicsBody?.affectedByGravity = false;
+    platform6X6_2.physicsBody?.isDynamic = false
 }
 
 
@@ -132,6 +136,7 @@ func drawPlatform12x6_1(platform12X6_1: SKSpriteNode, screenWidth: CGFloat, scre
     
     platform12X6_1.physicsBody = SKPhysicsBody(rectangleOf: platform12X6_1.size)
     platform12X6_1.physicsBody?.affectedByGravity = false
+    platform12X6_1.physicsBody?.isDynamic = false
     
 }
 
@@ -154,6 +159,7 @@ func drawPlatform12x6_2(platform12X6_2: SKSpriteNode, screenWidth: CGFloat, scre
     
     platform12X6_2.physicsBody = SKPhysicsBody(rectangleOf: platform12X6_2.size)
     platform12X6_2.physicsBody?.affectedByGravity = false;
+    platform12X6_2.physicsBody?.isDynamic = false
 }
 
 
