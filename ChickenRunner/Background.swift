@@ -46,6 +46,18 @@ func backgroundNode() -> SKSpriteNode {
 }
 
 
+
+func drawSun(sun: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
+{
+    sun.anchorPoint = CGPoint.zero
+    randomNumber = Int.random(in: 700 ..< 1200)
+    randomHeight = Int.random(in: -100 ..< 100)
+    sun.setScale(1)
+    sun.position = CGPoint(x: Int(screenWidth - sun.size.width) , y: Int(screenHeight) - Int(sun.size.height))
+    sun.zPosition = -90
+}
+
+
 func drawCloud_1(cloud_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat)
 {
     
@@ -55,7 +67,7 @@ func drawCloud_1(cloud_1: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFl
     randomNumber = Int.random(in: 700 ..< 1200)
     randomHeight = Int.random(in: -100 ..< 100)
     speed_Cloud_1 = Int(randomScale)
-    cloud_1.position = CGPoint(x: Int(screenWidth + cloud_1.size.width) + randomNumber, y: Int(screenHeight / 2) + Int(randomHeight))
+    cloud_1.position = CGPoint(x: Int(screenWidth + cloud_1.size.width) + randomNumber, y: Int(screenHeight) - Int(randomHeight))
     cloud_1.zPosition = -50
 }
 
@@ -90,7 +102,7 @@ func drawHouse(houseBg: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloa
 }
 
 
-func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode, houseBG: SKSpriteNode, cameraNode: SKCameraNode, cameraMovePointsPerSec: Int, screenWidth: CGFloat, screenHeight: CGFloat)
+func moveClouds(sun: SKSpriteNode, cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode, houseBG: SKSpriteNode, cameraNode: SKCameraNode, cameraMovePointsPerSec: Int, screenWidth: CGFloat, screenHeight: CGFloat)
 {
    
     //Reset cloud 1 here
@@ -140,6 +152,8 @@ func moveClouds(cloud_1: SKSpriteNode, cloud_2: SKSpriteNode, barn: SKSpriteNode
         houseBG.setScale(2)
     }
     
+    
+    sun.position.x += CGFloat(cameraMovePointsPerSec)
     
     
     cloud_1.position.x -= CGFloat(cameraMovePointsPerSec / speed_Cloud_1)

@@ -9,29 +9,33 @@
 import SpriteKit
 import GameplayKit
 
+
 class GameScene: SKScene ,SKPhysicsContactDelegate{
+
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     let playableRect: CGRect
     let mySKView = SKView()
     
-    
     var screenWidth = CGFloat()
     var screenHeight = CGFloat()
     
     var bg = SKSpriteNode()
+    var bg_trees = SKSpriteNode()
     
     var randomNumber = Int.random(in: 150 ..< 300)
     var randomScale = CGFloat.random(in: 1 ..< 4)
 
     let cameraNode = SKCameraNode() // Camera Node
+    
     var cameraMovePointsPerSec = Int(10) // start speed for camera
     
     let houseBg = SKSpriteNode(imageNamed: "house") // farm house
     let barn = SKSpriteNode(imageNamed: "barn") // barn
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
     let cloud_2 = SKSpriteNode(imageNamed: "cloud")
+    let sun = SKSpriteNode(imageNamed: "sun_")
     //platforms are here
     let platform3X6_1 = SKSpriteNode(imageNamed: "platform3X6")
     let platform6X6_1 = SKSpriteNode(imageNamed: "platform6X6")
@@ -39,6 +43,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     let platform3X6_2 = SKSpriteNode(imageNamed: "platform3X6")
     let platform6X6_2 = SKSpriteNode(imageNamed: "platform6X6")
     let platform12X6_2 = SKSpriteNode(imageNamed: "platform12X6")
+    
+    let enemyFarmer = SKSpriteNode(imageNamed: "enemy_farmer")
     
     //var player = Player()
     var touch = false
@@ -68,6 +74,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         mainPlayer.physicsBody?.categoryBitMask = PhysicsCategory.Player
         mainPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         mainPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+
         addChild(mainPlayer)
         
        //Second
@@ -82,12 +89,11 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         //addChild(chickenPlayer)
         
-        
         addChild(cameraNode)
         camera = cameraNode
         cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
         
-        
+        physicsWorld.contactDelegate = self
         
         for i in 0...1 {
             
@@ -99,6 +105,11 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             bg.zPosition = -100
             addChild(bg)
         }
+        
+       
+        
+        drawSun(sun: sun, screenWidth: screenWidth, screenHeight: screenHeight)
+        addChild(sun)
         
         drawCloud_1(cloud_1: cloud_1, screenWidth: screenWidth, screenHeight: screenHeight)
         addChild(cloud_1)
@@ -113,66 +124,76 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         addChild(barn)
         
         
-        drawPlatform3x6_1(platform3X6_1: platform3X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform3X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
-        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
-        platform3X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
-        addChild(platform3X6_1)
-        
-    
-        drawPlatform6x6_1(platform6X6_1: platform6X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+        drawPlatform6x6_1(platform3X6_1: platform3X6_1, platform3X6_2: platform3X6_2, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform6X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
         platform6X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
         platform6X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         addChild(platform6X6_1)
         
         
-        drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform12X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
-        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
-        platform12X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
-        addChild(platform12X6_1)
-        
-       
-        
-        drawPlatform3x6_2(platform3X6_2: platform3X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform3X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
-        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
-         platform3X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
-        addChild(platform3X6_2)
+        drawPlatform3x6_1(platform3X6_1: platform3X6_1, platform3X6_2: platform3X6_2, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform3X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform3X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        addChild(platform3X6_1)
         
         
-        drawPlatform6x6_2(platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        
+        drawPlatform6x6_2(platform3X6_1: platform3X6_1, platform3X6_2: platform3X6_2, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform6X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
         platform6X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
         platform6X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
-        
         addChild(platform6X6_2)
+
         
         
-        drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
-        platform12X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
-        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
-        platform12X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+       // drawPlatform12x6_1(platform12X6_1: platform12X6_1, screenWidth: screenWidth, screenHeight: screenHeight)
+       platform12X6_1.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform12X6_1.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform12X6_1.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+
+        //addChild(platform12X6_1)
         
-        addChild(platform12X6_2)
+       
+        
+        drawPlatform3x6_2(platform3X6_1: platform3X6_1, platform3X6_2: platform3X6_2, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform3X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform3X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
+         platform3X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+
+        addChild(platform3X6_2)
         
         
 
         
+        
+       // drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
+        platform12X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
+        platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        platform12X6_2.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        
+        //addChild(platform12X6_2)
+
+        
+        //Draw enemies here --->
+        
+        drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        addChild(enemyFarmer)
+        //
+        
+        
+        
     }
     
-    
-    
     func didBegin(_ contact: SKPhysicsContact) {
-        print("contact")
+       // print("contact")
         let collision = contact.bodyA.categoryBitMask
             | contact.bodyB.categoryBitMask
         print("Hit")
         if collision == PhysicsCategory.Player | PhysicsCategory.Platform{
             print("platform")
             canJump = true
-            print("Jumped")
+            //print("Jumped")
         }else{
             canJump = false
         }
@@ -180,24 +201,25 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-        print("Not hit")
+        //print("Not hit")
     }
     
-  
-
+    
     //##################################
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+
         touch = true
-        print("it's clicking")
+        //print("it's clicking")
+
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         touch = false
-        print("it's not clicking anymore")
+        //print("it's not clicking anymore")
     }
     //##################################
     
-    var cameraRect : CGRect {
+    public var cameraRect : CGRect {
         let x = cameraNode.position.x - size.width/2
             + (size.width - playableRect.width)/2
         let y = cameraNode.position.y - size.height/2
@@ -206,7 +228,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             x: x,
             y: y,
             width: playableRect.width,
-            height: playableRect.height)
+            height: playableRect.height
+
+        )
+        
     }
     
     
@@ -252,6 +277,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     }
     
     func AnimatePlayer(){
+
         if mainPlayer.position.x <= cameraNode.position.x - mainPlayer.size.width*4{
             mainPlayer.position.x = mainPlayer.position.x + 25
         }else{
@@ -331,9 +357,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     override func update(_ currentTime: TimeInterval) {
         
         moveCamera()
-        moveClouds(cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
+        moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
-        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode)
+        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect)
+        
+        updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        
         AnimatePlayer()
     
         if touch && canJump {
@@ -348,6 +377,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         chickenTrain()
         //print("\(cameraNode.position.x) camera X here")
         
+        
     }
+
 }
 
