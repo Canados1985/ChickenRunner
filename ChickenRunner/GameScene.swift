@@ -176,6 +176,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         }else{
             canJump = false
         }
+      
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
@@ -257,7 +258,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
              mainPlayer.position.x = mainPlayer.position.x + 10
         }
 
-        //chickenPlayer.position.x = chickenPlayer.position.x + 15
+        //chickenPlayer.position.x = chickenPlayer.position.x + 10
         //mainPlayer.run(SKAction .rotate(byAngle: -π / 4.0, duration: 1))
     }
     
@@ -279,6 +280,14 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
        
     }
     
+    func MainPlayerHit(cPlayer: SKSpriteNode){
+        chickenPlayer.name = "ChickenTrain"
+        chickenPlayer.removeAllActions()
+        chickenPlayer.setScale(1.0)
+        chickenPlayer.zRotation = 0
+   
+    }
+    
     func chickenTrain(){
         var targetPosition = mainPlayer.position
             
@@ -291,6 +300,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
                 let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
                 let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
                 node.run(moveAction)
+             
             }
             targetPosition = node.position
         }
@@ -306,6 +316,16 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
                 print("Hits MainPlayer")
             }
         }
+        /*for Chicken in MainPlayerHit{
+            MainPlayerHit(cPlayer: chickenPlayer)
+        }*/
+    }
+    
+    func ResetGameScene(){
+        let gameScene:GameScene = GameScene(size: self.size)
+        let transition = SKTransition.fade(withDuration: 1.0)
+        gameScene.scaleMode = self.scaleMode
+        self.view!.presentScene(gameScene, transition: transition)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -319,6 +339,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         if touch && canJump {
              canJump = false
              mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2000))
+        }
+        
+        if mainPlayer.position.y < playableRect.height/4{
+            ResetGameScene()
         }
         checkCollisions()
         chickenTrain()
