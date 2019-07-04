@@ -84,9 +84,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             self?.spawnChicken()
             },
             SKAction.wait(forDuration: 5.0)])))
-        chickenPlayer.physicsBody?.categoryBitMask = PhysicsCategory.Chicken
-        chickenPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Player
-        chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+
         //addChild(chickenPlayer)
         
         addChild(cameraNode)
@@ -163,10 +161,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
 
         addChild(platform3X6_2)
         
-        
 
-        
-        
        // drawPlatform12x6_2(platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight)
         platform12X6_2.physicsBody?.categoryBitMask = PhysicsCategory.Platform
         platform12X6_2.physicsBody?.collisionBitMask = PhysicsCategory.Player
@@ -187,16 +182,31 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
        // print("contact")
-        let collision = contact.bodyA.categoryBitMask
+        let collisionPlayerVSPlatform = contact.bodyA.categoryBitMask
             | contact.bodyB.categoryBitMask
-        print("Hit")
-        if collision == PhysicsCategory.Player | PhysicsCategory.Platform{
+        
+        let collisionChickenVSPlatform = contact.bodyA.categoryBitMask
+            | contact.bodyB.categoryBitMask
+        
+        //print("Hit")
+        if collisionPlayerVSPlatform == PhysicsCategory.Player | PhysicsCategory.Platform{
             print("platform")
             canJump = true
-            //print("Jumped")
+            print("Jumped")
         }else{
             canJump = false
         }
+        
+        if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
+            
+            chickenPlayer.physicsBody = nil;
+            
+            print("chicken VS platform COLLISION")
+            //print("Jumped")
+        }else{
+           print("chicken VS platform ELSE")
+        }
+        
       
     }
     
@@ -296,6 +306,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
                 max: cameraRect.maxX),
             y: cameraRect.height/2)
    
+        chickenPlayer.physicsBody?.categoryBitMask = PhysicsCategory.Chicken
+        //chickenPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Player
+        chickenPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        //chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
+        
         addChild(chickenPlayer)
         let appear = SKAction.scale(to: 1.0, duration: 0.5)
         let wait = SKAction.wait(forDuration: 10.0)
@@ -373,8 +389,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         if mainPlayer.position.y < playableRect.height/4{
             ResetGameScene()
         }
-        checkCollisions()
-        chickenTrain()
+        //checkCollisions()
+        //chickenTrain()
         //print("\(cameraNode.position.x) camera X here")
         
         
