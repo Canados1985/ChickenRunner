@@ -172,11 +172,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         //Draw enemies here --->
         
-        drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_2: platform6X6_2)
         addChild(enemyFarmer)
         //
-        
-        
+    
         
     }
     
@@ -190,9 +189,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         //print("Hit")
         if collisionPlayerVSPlatform == PhysicsCategory.Player | PhysicsCategory.Platform{
-            print("platform")
+            //print("platform")
             canJump = true
-            print("Jumped")
+            //print("Jumped")
         }else{
             canJump = false
         }
@@ -201,10 +200,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             
             chickenPlayer.physicsBody = nil;
             
-            print("chicken VS platform COLLISION")
+            //print("chicken VS platform COLLISION")
             //print("Jumped")
         }else{
-           print("chicken VS platform ELSE")
+           //print("chicken VS platform ELSE")
         }
         
       
@@ -375,9 +374,16 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         moveCamera()
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
-        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect)
+        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect, enemyFarmer: enemyFarmer)
+       
         
-        updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        /*
+        if(cameraNode.position.x > 4000)
+        {
+                 updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2)
+        }
+        */
+
         
         AnimatePlayer()
     
