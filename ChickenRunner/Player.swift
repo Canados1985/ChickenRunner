@@ -55,7 +55,7 @@ func ChickenTexture(){
     
     chickenPlayer.size = CGSize(width: 180, height: 200)
     chickenPlayer.zPosition = 100
-    chickenPlayer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: chickenPlayer.size.width, height: chickenPlayer.size.height), center: CGPoint(x: 0, y: 0))
+    chickenPlayer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: chickenPlayer.size.width * 0.9, height: chickenPlayer.size.height * 0.9), center: CGPoint(x: 0, y: 0))
     mainPlayer.physicsBody?.affectedByGravity = true
     chickenPlayer.physicsBody!.isDynamic = true
     chickenPlayer.physicsBody?.allowsRotation = false
