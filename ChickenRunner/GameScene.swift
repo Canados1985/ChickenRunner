@@ -200,9 +200,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         if collisionPlayerVSPlatform == PhysicsCategory.Player | PhysicsCategory.Platform{
             //print("platform")
             canJump = true
-            //print("Jumped")
+            print(canJump)
         }else{
             canJump = false
+            print(canJump)
         }
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
@@ -274,7 +275,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+
     
     
     func moveCamera() {
@@ -400,7 +401,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
         if touch && canJump {
              canJump = false
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2000))
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
         }
         
         if mainPlayer.position.y < playableRect.height/4{
