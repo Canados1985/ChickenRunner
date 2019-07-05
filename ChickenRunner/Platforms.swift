@@ -169,7 +169,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
     {
         
         rGap = Int.random(in: 100 ..< 150)
-        rHeight = Int.random(in: -50 ..< 100)
+        rHeight = Int.random(in: -50 ..< 150)
         rIndex = Int.random(in: 1 ..< 3)
         
         //RESET PLATFORM BASED ON LAST CALL PLATFORM 3X6_2
@@ -182,7 +182,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
             enemyFarmer.position = CGPoint(x: platform6X6_1.position.x - platform6X6_1.size.width / 2, y: platform6X6_1.position.y + platform6X6_1.size.height / 2)
         }
        
-        print("RESET PLATFROM 6X6_1 HERE")
+        //print("RESET PLATFROM 6X6_1 HERE")
         //print("\(platform6X6_1.position.x) PLATFORM 6X6 X here")
         //print("\(platform6X6_1.position.y) PLATFORM 6X6 Y here")
     }
@@ -193,12 +193,12 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
     {
         
         rGap = Int.random(in: 100 ..< 150)
-        rHeight = Int.random(in: -50 ..< 100)
+        rHeight = Int.random(in: -50 ..< 200)
         rIndex = Int.random(in: 1 ..< 3)
         
         platform3X6_1.position = CGPoint(x: Int(platform6X6_1.position.x + platform6X6_1.size.width) + rGap, y: Int(screenHeight / 2 - platform3X6_1.size.height))
         
-        print("RESET PLATFROM 3X6_1 HERE")
+        //print("RESET PLATFROM 3X6_1 HERE")
     }
     
     //RESET PLATFORM 6X6_2 BASED ON 3X6_1
@@ -206,7 +206,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
     {
         
         rGap = Int.random(in: 100 ..< 150)
-        rHeight = Int.random(in: -50 ..< 100)
+        rHeight = Int.random(in: -50 ..< 150)
         rIndex = Int.random(in: 1 ..< 3)
         randomChance = 3
         
@@ -221,7 +221,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
         }
         
 
-        print("RESET PLATFROM 6X6_2 HERE")
+        //print("RESET PLATFROM 6X6_2 HERE")
     }
 
     
@@ -230,13 +230,13 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
     {
         
         rGap = Int.random(in: 100 ..< 150)
-        rHeight = Int.random(in: -50 ..< 100)
+        rHeight = Int.random(in: -50 ..< 200)
         rIndex = Int.random(in: 1 ..< 3)
         
         
         platform3X6_2.position = CGPoint(x: Int(platform6X6_2.position.x + platform6X6_2.size.width) + rGap, y: Int(screenHeight / 2 - platform3X6_2.size.height))
 
-        print("RESET PLATFROM 3X6_2 HERE")
+        //print("RESET PLATFROM 3X6_2 HERE")
     }
     
     //platform12X6_1.physicsBody?.linearDamping = 5

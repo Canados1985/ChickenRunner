@@ -31,6 +31,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     var cameraMovePointsPerSec = Int(10) // start speed for camera
     
+    
+    let playerslifeLabel = SKLabelNode(fontNamed: "ComicKings")
+    
     let houseBg = SKSpriteNode(imageNamed: "house") // farm house
     let barn = SKSpriteNode(imageNamed: "barn") // barn
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
@@ -175,7 +178,13 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_2: platform6X6_2)
         addChild(enemyFarmer)
         //
-    
+        
+        playerslifeLabel.text = "Lives: X"
+        playerslifeLabel.fontColor = SKColor.black
+        playerslifeLabel.fontSize = 100
+        playerslifeLabel.zPosition = 150
+        playerslifeLabel.position = CGPoint(x: 0 , y: cameraRect.height)
+        addChild(playerslifeLabel)
         
     }
     
@@ -271,6 +280,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     func moveCamera() {
 
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+        playerslifeLabel.position = CGPoint(x:cameraNode.position.x, y: playerslifeLabel.position.y)
 
         enumerateChildNodes(withName: "background") { node, _ in
             let background = node as! SKSpriteNode
@@ -371,6 +381,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         
+        playerslifeLabel.text = "Lives: \(playerLife)"
         moveCamera()
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
@@ -393,6 +404,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         }
         
         if mainPlayer.position.y < playableRect.height/4{
+            playerLife = 0;
             ResetGameScene()
         }
         //checkCollisions()

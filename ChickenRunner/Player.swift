@@ -9,7 +9,6 @@
 import Foundation
 import SpriteKit
 
-
 var TextureAtlas = SKTextureAtlas()
 var TextureArray = [SKTexture]()
 var mainPlayer = SKSpriteNode()
@@ -18,7 +17,7 @@ var ChickenAtlas = SKTextureAtlas()
 var ChickenArray = [SKTexture]()
 var chickenPlayer = SKSpriteNode()
 
- 
+var playerLife = Int();
        
 func PlayerTexture(){
 TextureAtlas = SKTextureAtlas(named: "Rooster")
@@ -38,7 +37,7 @@ TextureAtlas = SKTextureAtlas(named: "Rooster")
     mainPlayer.physicsBody!.isDynamic = true
     mainPlayer.physicsBody?.allowsRotation = false
     mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: TextureArray, timePerFrame: 0.1)))
-        
+    playerLife = 3
     }
 
 func ChickenTexture(){
@@ -61,8 +60,6 @@ func ChickenTexture(){
     chickenPlayer.physicsBody?.allowsRotation = false
     chickenPlayer.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
 }
-
-
 
 
     
