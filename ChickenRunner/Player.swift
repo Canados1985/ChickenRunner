@@ -31,9 +31,9 @@ TextureAtlas = SKTextureAtlas(named: "Rooster")
     mainPlayer.name = "Main"
     mainPlayer = SKSpriteNode(imageNamed: TextureAtlas.textureNames[0])
     mainPlayer.size = CGSize(width: 220, height: 220)
-    mainPlayer.position = CGPoint(x: 300 , y: 600)
+    mainPlayer.position = CGPoint(x: 800 , y: 600)
     mainPlayer.zPosition = 100
-    mainPlayer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: mainPlayer.size.width, height: mainPlayer.size.height), center: CGPoint(x: 0, y: 0))
+    mainPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 90, center: CGPoint(x: 0, y: 0))
     mainPlayer.physicsBody?.affectedByGravity = true
     mainPlayer.physicsBody!.isDynamic = true
     mainPlayer.physicsBody?.allowsRotation = false
@@ -51,8 +51,7 @@ func ChickenTexture(){
     }
  
     chickenPlayer = SKSpriteNode(imageNamed: ChickenAtlas.textureNames[0])
-    chickenPlayer.name = "Chicken"
-    
+    //chickenPlayer.name = "Chicken"
     chickenPlayer.size = CGSize(width: 180, height: 200)
     chickenPlayer.zPosition = 100
     chickenPlayer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: chickenPlayer.size.width * 0.9, height: chickenPlayer.size.height * 0.9), center: CGPoint(x: 0, y: 0))
