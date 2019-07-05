@@ -31,6 +31,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     var cameraMovePointsPerSec = Int(20) // start speed for camera
     
+    
+    let playerslifeLabel = SKLabelNode(fontNamed: "ComicKings")
+    
     let houseBg = SKSpriteNode(imageNamed: "house") // farm house
     let barn = SKSpriteNode(imageNamed: "barn") // barn
     let cloud_1 = SKSpriteNode(imageNamed: "cloud")
@@ -174,10 +177,18 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         //Draw enemies here --->
         
-        drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_2: platform6X6_2)
         addChild(enemyFarmer)
         //
         
+
+        playerslifeLabel.text = "Lives: X"
+        playerslifeLabel.fontColor = SKColor.black
+        playerslifeLabel.fontSize = 100
+        playerslifeLabel.zPosition = 150
+        playerslifeLabel.position = CGPoint(x: 0 , y: cameraRect.height)
+        addChild(playerslifeLabel)
+
         trainLabel.text = "Hens: "
         trainLabel.fontColor = SKColor.black
         trainLabel.fontSize = 100
@@ -190,7 +201,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         //addChild(trainLabel)
         cameraNode.addChild(trainLabel)
         
-        
+
         
     }
     
@@ -204,18 +215,22 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         //print("Hit")
         if collisionPlayerVSPlatform == PhysicsCategory.Player | PhysicsCategory.Platform{
-            print("platform")
+            //print("platform")
             canJump = true
             print("Jumped")
         }
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
             
+
             //chickenPlayer.physicsBody = nil;
-            print("chicken VS platform COLLISION")
+            
+            //print("chicken VS platform COLLISION")
+
+
             //print("Jumped")
         }else{
-           print("chicken VS platform ELSE")
+           //print("chicken VS platform ELSE")
         }
         
       
@@ -277,12 +292,13 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+
     
     
     func moveCamera() {
 
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
+        playerslifeLabel.position = CGPoint(x:cameraNode.position.x, y: playerslifeLabel.position.y)
 
         enumerateChildNodes(withName: "background") { node, _ in
             let background = node as! SKSpriteNode
@@ -360,12 +376,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             
         
             trainCount += 1
-        }
-        
         trainLabel.text = "Hens: \(trainCount)"
-        
-        
-    }
+        }
+    
+    
     
     func checkCollisions(){
         var hitChicken: [SKSpriteNode] = []
@@ -392,12 +406,20 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         
+        playerslifeLabel.text = "Lives: \(playerLife)"
         moveCamera()
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
-        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect)
+        resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect, enemyFarmer: enemyFarmer)
+       
         
-        updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform12_1: platform12X6_1, platform12_2: platform12X6_2)
+        /*
+        if(cameraNode.position.x > 4000)
+        {
+                 updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2)
+        }
+        */
+
         
         AnimatePlayer()
     
@@ -411,6 +433,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         }
         
         if mainPlayer.position.y < playableRect.height/4{
+            playerLife = 0;
             ResetGameScene()
         }
         checkCollisions()

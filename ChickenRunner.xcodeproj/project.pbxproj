@@ -39,6 +39,7 @@
 		9E3F34A522BB503800A73B44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E3F34A322BB503800A73B44 /* LaunchScreen.storyboard */; };
 		9E3F34B022BB503800A73B44 /* ChickenRunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F34AF22BB503800A73B44 /* ChickenRunnerTests.swift */; };
 		9E3F34BB22BB503800A73B44 /* ChickenRunnerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F34BA22BB503800A73B44 /* ChickenRunnerUITests.swift */; };
+		9EC6CF2022CED05E00DEDB0B /* ComicKings.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EC6CF1E22CEC18700DEDB0B /* ComicKings.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		9E3F34B622BB503800A73B44 /* ChickenRunnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChickenRunnerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E3F34BA22BB503800A73B44 /* ChickenRunnerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickenRunnerUITests.swift; sourceTree = "<group>"; };
 		9E3F34BC22BB503800A73B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EC6CF1E22CEC18700DEDB0B /* ComicKings.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComicKings.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +187,11 @@
 				9E3F34A622BB503800A73B44 /* Info.plist */,
 				9436C86422BDA15F00FF6637 /* Player.swift */,
 				9479DADA22C1A3540061DA05 /* MyTileSet.sks */,
+
+				9EC6CF1E22CEC18700DEDB0B /* ComicKings.ttf */,
+
 				940241D722CECED800C48C31 /* Splatch.ttf */,
+
 			);
 			path = ChickenRunner;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				940149D522CD594900F8C0E4 /* Rooster.atlas in Resources */,
 				9479DADB22C1A3540061DA05 /* MyTileSet.sks in Resources */,
 				9E3F34A222BB503800A73B44 /* Assets.xcassets in Resources */,
+				9EC6CF2022CED05E00DEDB0B /* ComicKings.ttf in Resources */,
 				940149D322CD594400F8C0E4 /* Hen.atlas in Resources */,
 				9E3F34A522BB503800A73B44 /* LaunchScreen.storyboard in Resources */,
 				9E3F349922BB503700A73B44 /* Actions.sks in Resources */,
