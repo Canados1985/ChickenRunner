@@ -376,9 +376,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             
         
             trainCount += 1
-        trainLabel.text = "Hens: \(trainCount)"
+            self.trainLabel.text = "Hens: \(trainCount)"
         }
-    
+    }
     
     
     func checkCollisions(){
@@ -443,5 +443,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
     }
 
-}
+    }
+
 
