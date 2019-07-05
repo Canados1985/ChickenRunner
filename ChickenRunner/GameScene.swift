@@ -207,8 +207,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             print("platform")
             canJump = true
             print("Jumped")
-        }else{
-            canJump = false
         }
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
@@ -341,38 +339,26 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         cPlayer.removeAllActions()
         cPlayer.setScale(1.0)
         cPlayer.zRotation = 0
+        cPlayer.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
    
     }
     
     func chickenTrain(){
         
-        var targetPosition = mainPlayer.position
+        let targetPosition = mainPlayer.position
         var trainCount = 0
         enumerateChildNodes(withName: "ChickenTrain") { node, stop in
-            //if node.hasActions() {
-                //node.removeAllActions()
-                node.removeAction(forKey: "moveAction")
-                let actionDuration = 1.0
-                let offset = targetPosition -  node.position
-                let direction = offset.normalized()
-                let amountToMovePerSec = direction * self.chickenMovePerSec
-                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
-                let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
-                node.run(moveAction)
-                node.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
-//            } else {
-//                let actionDuration = 1.0
-//                let offset = targetPosition -  node.position
-//                let direction = offset.normalized()
-//                let amountToMovePerSec = direction * self.chickenMovePerSec
-//                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
-//                let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
-//                node.run(moveAction)
-//
-//            }
-            //if self.touch && self.canJump{
-               // chickenPlayer.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1000))
-          //  }
+       
+            //node.removeAction(forKey: "moveAction")
+            let actionDuration = 1.0
+            let offset = targetPosition -  node.position
+            let direction = offset.normalized()
+            let amountToMovePerSec = direction * self.chickenMovePerSec
+            let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
+            let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
+            node.run(moveAction)
+            
+        
             trainCount += 1
         }
         
@@ -417,7 +403,11 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
         if touch && canJump {
              canJump = false
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 1000))
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 800))
+            enumerateChildNodes(withName: "ChickenTrain") {node, stop in
+                node.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 800))
+                print("I'm jumping")
+            }
         }
         
         if mainPlayer.position.y < playableRect.height/4{
