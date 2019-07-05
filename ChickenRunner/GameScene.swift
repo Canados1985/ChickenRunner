@@ -29,7 +29,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
 
     let cameraNode = SKCameraNode() // Camera Node
     
-    var cameraMovePointsPerSec = Int(10) // start speed for camera
+    var cameraMovePointsPerSec = Int(20) // start speed for camera
     
     
     let playerslifeLabel = SKLabelNode(fontNamed: "ComicKings")
@@ -53,7 +53,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     var touch = false
     var canJump = true
     
-    let chickenMovePerSec : CGFloat = 200.0
+    let chickenMovePerSec : CGFloat = 25.0
+    
+    let trainLabel = SKLabelNode(fontNamed: "Splatch")
     
     //colision mask
     struct PhysicsCategory {
@@ -179,12 +181,27 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         addChild(enemyFarmer)
         //
         
+
         playerslifeLabel.text = "Lives: X"
         playerslifeLabel.fontColor = SKColor.black
         playerslifeLabel.fontSize = 100
         playerslifeLabel.zPosition = 150
         playerslifeLabel.position = CGPoint(x: 0 , y: cameraRect.height)
         addChild(playerslifeLabel)
+
+        trainLabel.text = "Hens: "
+        trainLabel.fontColor = SKColor.black
+        trainLabel.fontSize = 100
+        trainLabel.zPosition = 150
+        //trainLabel.horizontalAlignmentMode = .right
+        //trainLabel.verticalAlignmentMode = .top
+        trainLabel.position = CGPoint(
+            x: -cameraRect.size.width/2 + CGFloat(250),
+            y: -cameraRect.size.height/2 + CGFloat(1000))
+        //addChild(trainLabel)
+        cameraNode.addChild(trainLabel)
+        
+
         
     }
     
@@ -208,9 +225,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
             
+
             chickenPlayer.physicsBody = nil;
             
             //print("chicken VS platform COLLISION")
+
+
             //print("Jumped")
         }else{
            //print("chicken VS platform ELSE")
@@ -301,7 +321,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         if mainPlayer.position.x <= cameraNode.position.x - mainPlayer.size.width*4{
             mainPlayer.position.x = mainPlayer.position.x + 25
         }else{
-             mainPlayer.position.x = mainPlayer.position.x + 10
+             mainPlayer.position.x = mainPlayer.position.x + CGFloat(cameraMovePointsPerSec)
         }
 
         //chickenPlayer.position.x = chickenPlayer.position.x + 10
@@ -321,56 +341,77 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         chickenPlayer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
         //chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         chickenPlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Platform
-        
         addChild(chickenPlayer)
+        chickenPlayer.name = "hen"
         let appear = SKAction.scale(to: 1.0, duration: 0.5)
         let wait = SKAction.wait(forDuration: 10.0)
         let disappear = SKAction.scale(to: 0, duration: 0.5)
         let removeFromParent = SKAction.removeFromParent()
         let actions = [appear, wait, disappear, removeFromParent]
         chickenPlayer.run(SKAction.sequence(actions))
+        
        
     }
     
     func MainPlayerHit(cPlayer: SKSpriteNode){
-        chickenPlayer.name = "ChickenTrain"
-        chickenPlayer.removeAllActions()
-        chickenPlayer.setScale(1.0)
-        chickenPlayer.zRotation = 0
+        cPlayer.name = "ChickenTrain"
+        cPlayer.removeAllActions()
+        cPlayer.setScale(1.0)
+        cPlayer.zRotation = 0
    
     }
     
     func chickenTrain(){
+        
         var targetPosition = mainPlayer.position
-            
-        enumerateChildNodes(withName: "Chicken") { node, stop in
-            if !node.hasActions() {
-                let actionDuration = 0.3
+        var trainCount = 0
+        enumerateChildNodes(withName: "ChickenTrain") { node, stop in
+            //if node.hasActions() {
+                //node.removeAllActions()
+                node.removeAction(forKey: "moveAction")
+                let actionDuration = 1.0
                 let offset = targetPosition -  node.position
                 let direction = offset.normalized()
                 let amountToMovePerSec = direction * self.chickenMovePerSec
                 let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
                 let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
                 node.run(moveAction)
-             
-            }
-            targetPosition = node.position
+                node.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
+//            } else {
+//                let actionDuration = 1.0
+//                let offset = targetPosition -  node.position
+//                let direction = offset.normalized()
+//                let amountToMovePerSec = direction * self.chickenMovePerSec
+//                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
+//                let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
+//                node.run(moveAction)
+//
+//            }
+            //if self.touch && self.canJump{
+               // chickenPlayer.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1000))
+          //  }
+            trainCount += 1
         }
+        
+        trainLabel.text = "Hens: \(trainCount)"
+        
         
     }
     
     func checkCollisions(){
         var hitChicken: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "Chicken"){
+        enumerateChildNodes(withName: "hen"){
             node, _ in let chicken = node as! SKSpriteNode
             if chicken.frame.intersects(mainPlayer.frame){
                 hitChicken.append(chicken)
                 print("Hits MainPlayer")
+                
             }
+            
         }
-        /*for Chicken in MainPlayerHit{
+        for chickenPlayer in hitChicken{
             MainPlayerHit(cPlayer: chickenPlayer)
-        }*/
+        }
     }
     
     func ResetGameScene(){
@@ -401,15 +442,17 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
         if touch && canJump {
              canJump = false
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 2500))
+
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 1000))
+
         }
         
         if mainPlayer.position.y < playableRect.height/4{
             playerLife = 0;
             ResetGameScene()
         }
-        //checkCollisions()
-        //chickenTrain()
+        checkCollisions()
+        chickenTrain()
         //print("\(cameraNode.position.x) camera X here")
         
         
