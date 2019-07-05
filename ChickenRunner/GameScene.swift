@@ -218,15 +218,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             //print("platform")
             canJump = true
             print(canJump)
-        }else{
-            canJump = false
-            print(canJump)
         }
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
             
 
-            chickenPlayer.physicsBody = nil;
+            //chickenPlayer.physicsBody = nil;
             
             //print("chicken VS platform COLLISION")
 
@@ -366,8 +363,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         var targetPosition = mainPlayer.position
         var trainCount = 0
         enumerateChildNodes(withName: "ChickenTrain") { node, stop in
-            //if node.hasActions() {
-                //node.removeAllActions()
+
                 node.removeAction(forKey: "moveAction")
                 let actionDuration = 1.0
                 let offset = targetPosition -  node.position
@@ -377,26 +373,13 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
                 let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
                 node.run(moveAction)
                 node.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
-//            } else {
-//                let actionDuration = 1.0
-//                let offset = targetPosition -  node.position
-//                let direction = offset.normalized()
-//                let amountToMovePerSec = direction * self.chickenMovePerSec
-//                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
-//                let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
-//                node.run(moveAction)
-//
-//            }
-            //if self.touch && self.canJump{
-               // chickenPlayer.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1000))
-          //  }
+            }
+        
             trainCount += 1
-        }
-        
         trainLabel.text = "Hens: \(trainCount)"
-        
-        
-    }
+        }
+    
+    
     
     func checkCollisions(){
         var hitChicken: [SKSpriteNode] = []

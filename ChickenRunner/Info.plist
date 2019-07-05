@@ -23,6 +23,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>ComicKings.ttf</string>
+		<string>Splatch.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -43,10 +44,6 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Splatch.ttf</string>
 	</array>
 </dict>
 </plist>
