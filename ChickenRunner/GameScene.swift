@@ -223,9 +223,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         let collisionPlayerVSPlatform = contact.bodyA.categoryBitMask
             | contact.bodyB.categoryBitMask
         
-        let collisionChickenVSPlatform = contact.bodyA.categoryBitMask
-            | contact.bodyB.categoryBitMask
-        
         let collisionPlayerVSFarmer = contact.bodyA.categoryBitMask
             | contact.bodyB.categoryBitMask
         
@@ -237,15 +234,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             print("Jumped")
         }
         
-        if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
-            
-            //chickenPlayer.physicsBody = nil;
-        
-            //print("chicken VS platform COLLISION")
-            //print("Jumped")
-        }else{
-           //print("chicken VS platform ELSE")
-        }
         
         if collisionPlayerVSFarmer == PhysicsCategory.Player |
             PhysicsCategory.Farmer
@@ -409,7 +397,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             
           
             if node.position.y < self.playableRect.height/4 && trainCount > 0{
-                //node.removeAction(forKey: "moveAction")
+               
                 trainCount -= 1
             }
             
