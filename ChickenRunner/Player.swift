@@ -38,7 +38,7 @@ TextureAtlas = SKTextureAtlas(named: "Rooster")
     mainPlayer.physicsBody?.affectedByGravity = true
     mainPlayer.physicsBody!.isDynamic = true
     mainPlayer.physicsBody?.allowsRotation = false
-    
+     
     //Animation
     mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: TextureArray, timePerFrame: 0.1)))
     playerLife = 3
