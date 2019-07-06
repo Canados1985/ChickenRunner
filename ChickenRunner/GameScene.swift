@@ -333,7 +333,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     func moveCamera() {
 
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
-        playerslifeLabel.position = CGPoint(x:cameraNode.position.x, y: playerslifeLabel.position.y)
+ 
 
         enumerateChildNodes(withName: "background") { node, _ in
             let background = node as! SKSpriteNode
