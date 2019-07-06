@@ -54,6 +54,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     //var player = Player()
     var touch = false
     var canJump = true
+    var trainCount = 0
     
     let chickenMovePerSec : CGFloat = 25.0
     
@@ -369,7 +370,6 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         let actions = [appear, wait, disappear, removeFromParent]
         chickenPlayer.run(SKAction.sequence(actions))
         
-       
     }
     
     func MainPlayerHit(cPlayer: SKSpriteNode){
@@ -384,7 +384,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     func chickenTrain(){
         
         let targetPosition = mainPlayer.position
-        var trainCount = 0
+        
         enumerateChildNodes(withName: "ChickenTrain") { node, stop in
        
             let actionDuration = 1.0
@@ -396,17 +396,17 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             node.run(moveAction)
             
           
-            if node.position.y < self.playableRect.height/4 && trainCount > 0{
-               
-                trainCount -= 1
+            if node.position.y < self.playableRect.height/4 && self.trainCount > 0{
+                //node.removeAction(forKey: "moveAction")
+                self.trainCount -= 1
+                node.position = self.sun.position
+                node.name = "hen"
             }
             
-            trainCount += 1
-            
           
-            self.trainLabel.text = "Hens: \(trainCount)"
-            print("Train Count \(self.playableRect.height/5)")
-            print("Chicken Position \(node.position.y)")
+            self.trainLabel.text = "Hens: \(self.trainCount)"
+            //print("Train Count \(self.playableRect.height/5)")
+            //print("Chicken Position \(node.position.y)")
         }
         
         
@@ -421,7 +421,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             if chicken.frame.intersects(mainPlayer.frame){
                 hitChicken.append(chicken)
                 print("Hits MainPlayer")
-                
+                self.trainCount += 1
             }
             
         }
