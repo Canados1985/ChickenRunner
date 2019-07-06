@@ -18,15 +18,13 @@ func drawEnemyFarmer(farmer: SKSpriteNode, screenWidth: CGFloat, screenHeight: C
     randomNumber = Int.random(in: 700 ..< 1200)
     randomHeight = Int.random(in: -100 ..< 100)
    
-    farmer.setScale(3)
+    farmer.size = (CGSize(width: 200, height: 250))
     farmer.position.x = platform6X6_2.position.x - platform6X6_2.size.width / 3
     farmer.position.y = platform6X6_2.position.y + platform6X6_2.size.height / 2
     farmer.zPosition = 0
     
-
     
-    farmer.physicsBody = SKPhysicsBody(rectangleOf: farmer.size)
-    
+    farmer.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: farmer.size.width, height: farmer.size.height), center: CGPoint(x: farmer.size.width/2, y: farmer.size.height/2))
     farmer.physicsBody?.affectedByGravity = false;
     farmer.physicsBody?.isDynamic = false
     
