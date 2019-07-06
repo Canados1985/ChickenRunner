@@ -179,6 +179,7 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
         randomChance = Int.random(in: 0 ..< 3)
         if(randomChance > 1 && Int(enemyFarmer.position.x) < Int(cameraNode.position.x - cameraRect.size.width / 2 - enemyFarmer.size.width / 2))
         {
+            enemyFarmer.alpha = 1
             enemyFarmer.position = CGPoint(x: platform6X6_1.position.x - platform6X6_1.size.width / 2, y: platform6X6_1.position.y + platform6X6_1.size.height / 2)
         }
        
@@ -217,6 +218,8 @@ func resetPlatformsHere(platform3X6_1: SKSpriteNode, platform6X6_1: SKSpriteNode
         randomChance = Int.random(in: 0 ..< 3)
         if(randomChance > 1 && Int(enemyFarmer.position.x) < Int(cameraNode.position.x - cameraRect.size.width / 2 - enemyFarmer.size.width / 2))
         {
+            
+            enemyFarmer.alpha = 1
             enemyFarmer.position = CGPoint(x: platform6X6_2.position.x - platform6X6_2.size.width / 2, y: platform6X6_2.position.y + platform6X6_2.size.height / 2)
         }
         
