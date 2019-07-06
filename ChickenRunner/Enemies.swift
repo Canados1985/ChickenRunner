@@ -10,6 +10,7 @@ import Foundation
 
 var randomChance = Int()
 
+var farmerIsActive = Bool(true)
 
 func drawEnemyFarmer(farmer: SKSpriteNode, screenWidth: CGFloat, screenHeight: CGFloat, platform6X6_2: SKSpriteNode )
 {
@@ -17,10 +18,17 @@ func drawEnemyFarmer(farmer: SKSpriteNode, screenWidth: CGFloat, screenHeight: C
     randomNumber = Int.random(in: 700 ..< 1200)
     randomHeight = Int.random(in: -100 ..< 100)
    
-    farmer.setScale(1)
+    farmer.setScale(3)
     farmer.position.x = platform6X6_2.position.x - platform6X6_2.size.width / 3
     farmer.position.y = platform6X6_2.position.y + platform6X6_2.size.height / 2
-    farmer.zPosition = -40
+    farmer.zPosition = 0
+    
+
+    
+    farmer.physicsBody = SKPhysicsBody(rectangleOf: farmer.size)
+    
+    farmer.physicsBody?.affectedByGravity = false;
+    farmer.physicsBody?.isDynamic = false
     
 }
 

@@ -49,6 +49,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     let enemyFarmer = SKSpriteNode(imageNamed: "enemy_farmer")
     
+    let fryChicken =  SKSpriteNode(imageNamed: "fryChicken")
+    var fryChickenIsActive = Bool(false)
     //var player = Player()
     var touch = false
     var canJump = true
@@ -63,7 +65,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         static let Platform:   UInt32 = 0b1 // 1
         static let Player:     UInt32 = 0b10 // 2
         static let Chicken:    UInt32 = 0b100 // 4
-      //  static let name:     UInt32 = 0b1000 // 8
+        static let Farmer:     UInt32 = 0b1000 // 8
       //  static let name:     UInt32 = 0b10000 // 16
       //  static let name:     UInt32 = 0b100000 // 32
       //  static let name:     UInt32 = 0b1000000 // 64
@@ -178,8 +180,19 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         //Draw enemies here --->
         
         drawEnemyFarmer(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_2: platform6X6_2)
+        enemyFarmer.physicsBody?.categoryBitMask = PhysicsCategory.Farmer
+        enemyFarmer.physicsBody?.collisionBitMask = PhysicsCategory.Platform
+        enemyFarmer.physicsBody?.contactTestBitMask = PhysicsCategory.Player
+        
         addChild(enemyFarmer)
         //
+        
+        fryChicken.anchorPoint = CGPoint.zero
+        fryChicken.setScale(3)
+        fryChicken.position = CGPoint(x: Int(screenWidth/2) , y: Int(screenHeight/2) )
+        fryChicken.zPosition = 1
+        addChild(fryChicken)
+        fryChicken.alpha = 0
         
 
         playerslifeLabel.text = "Lives: X"
@@ -213,6 +226,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         let collisionChickenVSPlatform = contact.bodyA.categoryBitMask
             | contact.bodyB.categoryBitMask
         
+        let collisionPlayerVSFarmer = contact.bodyA.categoryBitMask
+            | contact.bodyB.categoryBitMask
+        
+        
         //print("Hit")
         if collisionPlayerVSPlatform == PhysicsCategory.Player | PhysicsCategory.Platform{
             //print("platform")
@@ -222,16 +239,33 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         if collisionChickenVSPlatform == PhysicsCategory.Chicken | PhysicsCategory.Platform{
             
-
             //chickenPlayer.physicsBody = nil;
-            
+        
             //print("chicken VS platform COLLISION")
-
-
             //print("Jumped")
         }else{
            //print("chicken VS platform ELSE")
         }
+        
+        if collisionPlayerVSFarmer == PhysicsCategory.Player |
+            PhysicsCategory.Farmer
+        {
+            if(farmerIsActive)
+            {
+                playerLife = playerLife - 1
+                print("HERE CONTACT WITH FARMER")
+                farmerIsActive = false
+                enemyFarmer.alpha = 0
+                
+                fryChicken.position = enemyFarmer.position
+                
+                fryChickenIsActive = true
+                fryChicken.alpha = 1
+                
+            }
+
+        }
+        else{farmerIsActive = true}
         
       
     }
@@ -406,6 +440,17 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         
+        
+        if(fryChickenIsActive)
+        {
+            fryChicken.position.y = CGFloat(fryChicken.position.y) + CGFloat(cameraMovePointsPerSec)
+        }
+        if(fryChicken.position.y > screenHeight / 2)
+        {
+            fryChickenIsActive = false
+            fryChicken.alpha = 0
+        }
+        
         playerslifeLabel.text = "Lives: \(playerLife)"
         moveCamera()
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
@@ -432,7 +477,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             }
         }
         
-        if mainPlayer.position.y < playableRect.height/4{
+        if mainPlayer.position.y < playableRect.height/4 || playerLife == 0{
             playerLife = 0;
             ResetGameScene()
         }
@@ -440,8 +485,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         chickenTrain()
         //print("\(cameraNode.position.x) camera X here")
         
+
         
-    }
+        }
+    
+    
+    
 
     }
 
