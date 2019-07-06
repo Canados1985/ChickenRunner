@@ -58,7 +58,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     let chickenMovePerSec : CGFloat = 25.0
     
-    let trainLabel = SKLabelNode(fontNamed: "Splatch")
+    let trainLabel = SKLabelNode(fontNamed: "ComicKings")
+    let scoreLabel = SKLabelNode(fontNamed: "ComicKings")
+    var scoreCount = 0
     
     //colision mask
     struct PhysicsCategory {
@@ -200,21 +202,28 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         playerslifeLabel.fontColor = SKColor.black
         playerslifeLabel.fontSize = 100
         playerslifeLabel.zPosition = 150
-        playerslifeLabel.position = CGPoint(x: 0 , y: cameraRect.height)
-        addChild(playerslifeLabel)
+        playerslifeLabel.position = CGPoint(
+            x: -cameraRect.size.width/2 + CGFloat(780),
+            y: -cameraRect.size.height/2 + CGFloat(1000))
+        cameraNode.addChild(playerslifeLabel)
 
         trainLabel.text = "Hens: "
         trainLabel.fontColor = SKColor.black
         trainLabel.fontSize = 100
         trainLabel.zPosition = 150
-        //trainLabel.horizontalAlignmentMode = .right
-        //trainLabel.verticalAlignmentMode = .top
         trainLabel.position = CGPoint(
             x: -cameraRect.size.width/2 + CGFloat(250),
             y: -cameraRect.size.height/2 + CGFloat(1000))
-        //addChild(trainLabel)
         cameraNode.addChild(trainLabel)
         
+        scoreLabel.text = "Score: "
+        scoreLabel.fontColor = SKColor.black
+        scoreLabel.fontSize = 100
+        scoreLabel.zPosition = 150
+        scoreLabel.position = CGPoint(
+            x: -cameraRect.size.width/2 + CGFloat(1400),
+            y: -cameraRect.size.height/2 + CGFloat(1000))
+        cameraNode.addChild(scoreLabel)
 
         
     }
@@ -321,7 +330,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     func moveCamera() {
 
         cameraNode.position.x = cameraNode.position.x + CGFloat(cameraMovePointsPerSec)
-        playerslifeLabel.position = CGPoint(x:cameraNode.position.x, y: playerslifeLabel.position.y)
+        //playerslifeLabel.position = CGPoint(x: cameraRect.size.width/2,
+                                            //y: cameraRect.size.height/2)
 
         enumerateChildNodes(withName: "background") { node, _ in
             let background = node as! SKSpriteNode
@@ -378,6 +388,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         cPlayer.setScale(1.0)
         cPlayer.zRotation = 0
         cPlayer.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
+        scoreCount += 20
+        
    
     }
     
@@ -460,9 +472,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
         if touch && canJump {
              canJump = false
-             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 800))
+             mainPlayer.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 1000))
             enumerateChildNodes(withName: "ChickenTrain") {node, stop in
-                node.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 800))
+                node.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 1000))
                 print("I'm jumping")
             }
         }
@@ -475,7 +487,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         chickenTrain()
         //print("\(cameraNode.position.x) camera X here")
         
-
+        self.scoreLabel.text = "Score: \(scoreCount)"
         
         }
     
