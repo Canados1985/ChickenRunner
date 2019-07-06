@@ -20,6 +20,7 @@ var chickenPlayer = SKSpriteNode()
 var playerLife = Int();
        
 func PlayerTexture(){
+    //Rooster Texture Atlas [Makes the atlas sprite]
 TextureAtlas = SKTextureAtlas(named: "Rooster")
         
     for i in 1...TextureAtlas.textureNames.count{
@@ -32,15 +33,19 @@ TextureAtlas = SKTextureAtlas(named: "Rooster")
     mainPlayer.size = CGSize(width: 220, height: 220)
     mainPlayer.position = CGPoint(x: 800 , y: 600)
     mainPlayer.zPosition = 100
+    //Physics Body
     mainPlayer.physicsBody = SKPhysicsBody(circleOfRadius: 90, center: CGPoint(x: 0, y: 0))
     mainPlayer.physicsBody?.affectedByGravity = true
     mainPlayer.physicsBody!.isDynamic = true
     mainPlayer.physicsBody?.allowsRotation = false
+    
+    //Animation
     mainPlayer.run(SKAction.repeatForever(SKAction.animate(with: TextureArray, timePerFrame: 0.1)))
     playerLife = 3
     }
 
 func ChickenTexture(){
+    //Hen atlas sprites
     ChickenAtlas = SKTextureAtlas(named: "Hen")
  
     for i in 1...ChickenAtlas.textureNames.count{
@@ -57,6 +62,7 @@ func ChickenTexture(){
     mainPlayer.physicsBody?.affectedByGravity = true
     chickenPlayer.physicsBody!.isDynamic = true
     chickenPlayer.physicsBody?.allowsRotation = false
+    //Animation
     chickenPlayer.run(SKAction.repeatForever(SKAction.animate(with: ChickenArray, timePerFrame: 0.1)))
 }
 

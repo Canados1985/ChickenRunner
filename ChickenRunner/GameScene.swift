@@ -365,22 +365,33 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         var trainCount = 0
         enumerateChildNodes(withName: "ChickenTrain") { node, stop in
        
-            //node.removeAction(forKey: "moveAction")
             let actionDuration = 1.0
             let offset = targetPosition -  node.position
             let direction = offset.normalized()
             let amountToMovePerSec = direction * self.chickenMovePerSec
             let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
-            let moveAction = SKAction.moveBy(x: amountToMove.x, y: amountToMove.y, duration: actionDuration)
+            let moveAction = SKAction.moveBy(x: amountToMove.x + CGFloat(5), y: amountToMove.y, duration: actionDuration)
             node.run(moveAction)
             
-        
+          
+            if node.position.y < self.playableRect.height/4 && trainCount > 0{
+                //node.removeAction(forKey: "moveAction")
+                trainCount -= 1
+            }
+            
             trainCount += 1
-        trainLabel.text = "Hens: \(trainCount)"
+            
+          
+            self.trainLabel.text = "Hens: \(trainCount)"
+            print("Train Count \(self.playableRect.height/5)")
+            print("Chicken Position \(node.position.y)")
         }
+        
+        
+        
     
-    
-    
+    }
+
     func checkCollisions(){
         var hitChicken: [SKSpriteNode] = []
         enumerateChildNodes(withName: "hen"){
@@ -411,16 +422,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         moveClouds(sun: sun, cloud_1: cloud_1, cloud_2: cloud_2, barn: barn, houseBG: houseBg, cameraNode: cameraNode, cameraMovePointsPerSec: cameraMovePointsPerSec, screenWidth: screenWidth, screenHeight: screenHeight)
        
         resetPlatformsHere(platform3X6_1: platform3X6_1, platform6X6_1: platform6X6_1, platform12X6_1: platform12X6_2, platform3X6_2: platform3X6_2, platform6X6_2: platform6X6_2, platform12X6_2: platform12X6_2, screenWidth: screenWidth, screenHeight: screenHeight, cameraNode: cameraNode, cameraRect: cameraRect, enemyFarmer: enemyFarmer)
-       
-        
-        /*
-        if(cameraNode.position.x > 4000)
-        {
-                 updateEnemy(farmer: enemyFarmer, screenWidth: screenWidth, screenHeight: screenHeight, platform6X6_1: platform6X6_1, platform6X6_2: platform6X6_2)
-        }
-        */
 
-        
         AnimatePlayer()
     
         if touch && canJump {
@@ -444,4 +446,5 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     }
 
 }
+
 
